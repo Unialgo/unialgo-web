@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {Notfound} from './ctx-layout/pages/notfound/notfound.component';
+import {NotFoundComponent} from './ctx-layout/pages/notfound/notfound.component';
 import {AppLayout} from './ctx-layout/layout/component/app.layout.component';
 
 export const routes: Routes = [
@@ -11,7 +11,7 @@ export const routes: Routes = [
     children: [
     ]
   },
-  {path: 'notfound', component: Notfound},
+  {path: 'notfound', component: NotFoundComponent},
   {path: '**', redirectTo: '/notfound'}
 ];
 

@@ -1,7 +1,9 @@
-import {Component, Renderer2, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Component, Renderer2, ViewChild} from '@angular/core';
 import {NavigationEnd, Router, RouterModule} from '@angular/router';
+
 import {filter, Subscription} from 'rxjs';
+
 import {AppTopbar} from './app.topbar.component';
 import {AppSidebar} from './app.sidebar.component';
 import {AppFooter} from './app.footer.component';

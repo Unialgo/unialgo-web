@@ -1,15 +1,16 @@
+import {CommonModule} from '@angular/common';
 import {Component, HostBinding, Input} from '@angular/core';
 import {NavigationEnd, Router, RouterModule} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+
 import {Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {CommonModule} from '@angular/common';
-import {RippleModule} from 'primeng/ripple';
 import {MenuItem} from 'primeng/api';
+import {RippleModule} from 'primeng/ripple';
+
 import {LayoutService} from '../service/layout.service';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[app-menuitem]',
     imports: [CommonModule, RouterModule, RippleModule],
     template: `
@@ -130,18 +131,15 @@ export class AppMenuitem {
     }
 
     itemClick(event: Event) {
-        // avoid processing disabled items
         if (this.item.disabled) {
             event.preventDefault();
             return;
         }
 
-        // execute command
         if (this.item.command) {
             this.item.command({originalEvent: event, item: this.item});
         }
 
-        // toggle active state
         if (this.item.items) {
             this.active = !this.active;
         }
