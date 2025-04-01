@@ -43,3 +43,8 @@
     width: 100% !important;
     border-radius: 3px !important;
 }
+
+* {
+    --p-inputtext-border-radius: 3px !important;
+    --p-inputtext-padding-y: 10px;
+}

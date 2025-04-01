@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {LayoutService} from '../../../ctx-layout/layout/service/layout.service';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-auth-login',
