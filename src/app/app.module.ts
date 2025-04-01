@@ -11,6 +11,8 @@ import {AppComponent} from './app.component';
 import {LayoutModule} from './ctx-layout/layout.module';
 import {PrimeNGModule} from './prime-ng/prime-ng.module';
 import {AppRoutingModule, routes} from './app-routing.module';
+import {AuthModule} from './ctx-auth/auth.module';
+import {LibrariesModule} from './libraries/libraries.module';
 
 const components = [
   AppComponent
@@ -23,7 +25,9 @@ const foreignModules = [
 const localModules = [
   AppRoutingModule,
   LayoutModule,
+  AuthModule,
   PrimeNGModule,
+  LibrariesModule
 ];
 
 @NgModule({

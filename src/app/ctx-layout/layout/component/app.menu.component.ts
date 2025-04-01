@@ -21,10 +21,21 @@ export class AppMenu {
     model: MenuItem[] = [];
 
     ngOnInit() {
+       this.carregarItensMenu();
+    }
+
+    carregarItensMenu(): void {
         this.model = [
             {
                 label: 'Home',
                 items: [{label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']}]
+            },
+            {
+                label: 'Auth',
+                items: [
+                    {label: 'Login', icon: 'pi pi-fw pi-home', routerLink: ['/login']},
+                    {label: 'Sign Up', icon: 'pi pi-fw pi-home', routerLink: ['/sign-up']}
+                ]
             },
         ];
     }
