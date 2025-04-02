@@ -57,16 +57,17 @@
                                 </div>
                             </p-iconfield>
                             <div style="justify-content: end; text-align: end">
-                                <a href="/"
-                                    ><span style="color: var(--primary-color)" class="text-xs"><b>Forgot Your Password?</b></span></a
-                                >
+                                <a href="/">
+                                    <span class="text-xs"><b class="redirect-link">Forgot Your Password?</b></span>
+                                </a>
                             </div>
                         </div>
                         <div class="col text-center pt-4 pb-4">
                             <p-button class="bg-primary" styleClass="login-button" (click)="onClickLogin()">Login</p-button>
                         </div>
                         <div class="col text-center pt-8 font-bold">
-                            <p class="text-sm">Not a member?<a href="/sign-up"><span style="color: var(--primary-color)"> Register now</span></a>
+                            <p class="text-sm">
+                                Not a member?<a href="/sign-up"><span class="redirect-link"> Register now</span></a>
                             </p>
                         </div>
                     </form>

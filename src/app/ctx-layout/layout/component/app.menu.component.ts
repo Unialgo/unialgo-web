@@ -27,7 +27,7 @@ export class AppMenu {
     carregarItensMenu(): void {
         this.model = [
             {
-                label: 'Home',
+                label: 'Dashboards',
                 items: [{label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']}]
             },
             {
