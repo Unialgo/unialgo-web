@@ -5,12 +5,14 @@ import {NotFoundComponent} from './ctx-layout/pages/notfound/notfound.component'
 import {AppLayout} from './ctx-layout/layout/component/app.layout.component';
 import {LoginComponent} from './ctx-auth/pages/login/login.component';
 import {SignUpComponent} from './ctx-auth/pages/sign-up/sign-up.component';
+import {DashboardProfessorComponent} from './ctx-dashboards/pages/dashboard-professor/dashboard-professor.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: AppLayout,
     children: [
+      {path: 'professor', component: DashboardProfessorComponent},
     ]
   },
   {path: 'login', component: LoginComponent},
