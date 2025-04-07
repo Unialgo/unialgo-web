@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'app-dashboard-professor',
@@ -8,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DashboardProfessorComponent implements OnInit {
-    currentDate = new Date();
-    username = 'User';
-    exercisesCreated = 37;
+    currentDate: Date = new Date();
+    username: string = 'User';
+    exercisesCreated: number = 37;
+
+    private timer: any;
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.timer = setInterval(() => {
+            this.currentDate = new Date();
+        }, 1000);
+    }
+
+    ngOnDestroy() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    }
 }
