@@ -2,21 +2,19 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 
 import {PrimeNGModule} from "../prime-ng/prime-ng.module";
-import {DashboardProfessorComponent} from "./pages/dashboard-professor/dashboard-professor.component";
+import {ExerciciosModule} from "./exercicios/exercicios.module";
 
 const exports = [
-    DashboardProfessorComponent
+    ExerciciosModule
 ];
 
 const imports = [
     PrimeNGModule,
-    FormsModule
+    FormsModule,
+    ExerciciosModule
 ]
 
 @NgModule({
-    declarations: [
-        ...exports
-    ],
     imports: [
         ...imports
     ],
@@ -24,4 +22,4 @@ const imports = [
         ...exports
     ]
 })
-export class DashboardModule { }
+export class FaculdadesModule { }

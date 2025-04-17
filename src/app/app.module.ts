@@ -15,6 +15,7 @@ import {AuthModule} from './ctx-auth/auth.module';
 import {LibrariesModule} from './libraries/libraries.module';
 import {DashboardModule} from './ctx-dashboards/dashboard.module';
 import {FormsModule} from '@angular/forms';
+import {FaculdadesModule} from './ctx-faculdades/faculdades.module';
 
 const components = [
   AppComponent
@@ -31,7 +32,8 @@ const localModules = [
   AuthModule,
   PrimeNGModule,
   LibrariesModule,
-  DashboardModule
+  DashboardModule,
+  FaculdadesModule
 ];
 
 @NgModule({
