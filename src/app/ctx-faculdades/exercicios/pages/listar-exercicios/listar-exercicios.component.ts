@@ -1,9 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 
 import {Table} from 'primeng/table';
+import {Exercicio} from '../../../../api/faculdade';
 
 @Component({
-    selector: 'ctx-exercicios-listar-exercicios',
+    selector: 'ctx-faculdade-listar-exercicios',
     templateUrl: 'listar-exercicios.component.html',
     standalone: false,
 })
@@ -11,7 +12,12 @@ import {Table} from 'primeng/table';
 export class ListarExerciciosComponent implements OnInit {
     @ViewChild('dt') dt!: Table;
     searchValue: string = '';
-    exercises: any;
+
+    editarVisible: boolean = false;
+
+    exercises!: Exercicio[];
+    selectedExercise: Exercicio | null = null;
+    selectedExercises: Exercicio[] = [];
 
     constructor() { }
 
@@ -27,9 +33,29 @@ export class ListarExerciciosComponent implements OnInit {
         table.clear();
         this.searchValue = '';
     }
+
+    onClickEditar(exercicio: Exercicio) {
+        this.selectedExercise = exercicio;
+        this.editarVisible = true;
+    }
+
+    onEditarVisibleEvent(event: any): void {
+        this.editarVisible = false;
+        this.selectedExercise = null;
+    }
+
+    onEditarSuccessEvent(event: any): void {
+        this.editarVisible = false;
+        this.selectedExercise = null;
+    }
+
+    onEditarCancelationEvent(event: any): void {
+        this.editarVisible = false;
+        this.selectedExercise = null;
+    }
 }
 
-const mockData = [
+const mockData: Exercicio[] = [
     {
         id: 'a1b2c3d4-e5f6-7890-ab12-cd34ef56gh78',
         userId: '123e4567-e89b-12d3-a456-426614174000',

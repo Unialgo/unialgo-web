@@ -1,16 +1,18 @@
 import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import {ListarExerciciosComponent} from "./pages";
+import {EditarExercicioComponent, ListarExerciciosComponent} from "./pages";
 import {PrimeNGModule} from "../../prime-ng/prime-ng.module";
 
 const exports = [
+    EditarExercicioComponent,
     ListarExerciciosComponent
 ];
 
 const imports = [
     PrimeNGModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 ]
 
 @NgModule({

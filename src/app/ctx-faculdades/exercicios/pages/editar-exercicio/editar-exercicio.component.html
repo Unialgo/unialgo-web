@@ -1,0 +1,22 @@
+<p-dialog [(visible)]="visible" draggable="false" (onHide)="onHide()" [style]="{ width: '60vw', 'height': '70vh' }" header="Editar Exercicio" [modal]="true">
+    <ng-template #content>
+        <div class="flex">
+            <form [formGroup]="form">
+                <div>
+                    <label for="titulo" class="block font-bold mb-3">Título</label>
+                    <input type="text" pInputText id="titulo" formControlName="titulo" />
+                </div>
+                <div>
+                    <label for="enunciado" class="block font-bold mb-3">Enunciado</label>
+                    <textarea id="enunciado" pTextarea formControlName="enunciado"></textarea>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="w-full flex justify-between items-center gap-2">
+            <p-button severity="secondary" pRipple>Cancelar</p-button>
+            <p-button severity="primary" pRipple>Salvar</p-button>
+        </div>
+    </ng-template>
+</p-dialog>
