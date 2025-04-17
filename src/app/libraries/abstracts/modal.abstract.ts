@@ -1,24 +1,23 @@
 import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {MessageService} from 'primeng/api';
+import {ReactiveFormAbstract} from './reactive-form.abstract';
 
 @Component({template: ''})
-export abstract class ModalBaseAbstract {
+export abstract class ModalBaseAbstract extends ReactiveFormAbstract {
     @Input() visible: boolean = false;
     @Output() visibleEvent = new EventEmitter<boolean>();
     @Output() successEvent = new EventEmitter<any>();
     @Output() cancelationEvent = new EventEmitter();
 
-    protected constructor(
-        protected messageService: MessageService,
-        protected formBuilder: FormBuilder,
-        protected router: Router,
-        protected activatedRoute: ActivatedRoute) {
+    constructor(
+        protected override messageService: MessageService,
+        protected override formBuilder: FormBuilder) {
+        super(messageService, formBuilder);
     }
 
-    notifySuccess(resultado: any): void {
+    notifyConclusion(resultado: any): void {
         this.successEvent.emit(resultado);
         this.onHide();
     }

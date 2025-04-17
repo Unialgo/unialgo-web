@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 
 import {MessageService} from 'primeng/api';
 
-import {ModalBaseAbstract} from '../../../../libraries/abstracts';
 import {Exercicio} from '../../../../api/faculdade';
+import {ModalBaseAbstract} from '../../../../libraries/abstracts';
 
 @Component({
     selector: 'ctx-faculdade-editar-exercicio',
@@ -15,19 +14,26 @@ import {Exercicio} from '../../../../api/faculdade';
 
 export class EditarExercicioComponent extends ModalBaseAbstract implements OnInit {
     @Input({required: true}) exercicio!: Exercicio;
-    public form!: FormGroup;
 
     constructor(
         protected override messageService: MessageService,
-        protected override formBuilder: FormBuilder,
-        protected override router: Router,
-        protected override activatedRoute: ActivatedRoute) {
-        super(messageService, formBuilder, router, activatedRoute)
+        protected override formBuilder: FormBuilder) {
+        super(messageService, formBuilder);
     }
 
     ngOnInit(): void { 
         this.criarFormulario();
         this.carregarFormulario();
+    }
+
+    onClickCancelar(): void {
+        this.block('Cancelando')
+        setTimeout(() => {this.unlock()}, 1000)
+    }
+    
+    onClickSalvar(): void {
+        this.block('Salvando')
+        setTimeout(() => {this.unlock()}, 1000)
     }
 
     private criarFormulario(): void {

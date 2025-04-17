@@ -3,6 +3,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {EditarExercicioComponent, ListarExerciciosComponent} from "./pages";
 import {PrimeNGModule} from "../../prime-ng/prime-ng.module";
+import {LibrariesModule} from "../../libraries/libraries.module";
 
 const exports = [
     EditarExercicioComponent,
@@ -12,7 +13,8 @@ const exports = [
 const imports = [
     PrimeNGModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LibrariesModule,
 ]
 
 @NgModule({

@@ -1,10 +1,15 @@
 import {NgModule} from "@angular/core";
 
+import {BlockUIModule} from 'ng-block-ui';
 
-const exports: never[] = [
+import {BlockComponent} from "./components";
+
+const exports = [
+    BlockComponent
 ];
 
-const imports: never[] = [
+const imports = [
+    BlockUIModule.forRoot()
 ]
 
 @NgModule({
