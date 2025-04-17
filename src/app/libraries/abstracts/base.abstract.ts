@@ -3,10 +3,9 @@ import {Component} from '@angular/core';
 import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {MessageService, ToastMessageOptions} from 'primeng/api';
 
-
 @Component({template: ''})
 export abstract class BaseAbstract {
-    @BlockUI("app-block") private blockUI: NgBlockUI;
+    @BlockUI() private blockUI: NgBlockUI;
     public errors: any[] = [];
 
     constructor(protected messageService: MessageService) { }

@@ -43,7 +43,7 @@ const localModules = [
   ],
   imports: [
     ...foreignModules,
-    ...localModules
+    ...localModules,
   ],
   providers: [
     provideRouter(routes, withInMemoryScrolling({anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled'}), withEnabledBlockingInitialNavigation()),

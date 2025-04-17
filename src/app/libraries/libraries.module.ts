@@ -8,8 +8,8 @@ const exports = [
     BlockComponent
 ];
 
-const imports = [
-    BlockUIModule.forRoot()
+const imports: never[] = [
+   
 ]
 
 @NgModule({
@@ -17,10 +17,12 @@ const imports = [
         ...exports
     ],
     imports: [
-        ...imports
+        ...imports,
+        BlockUIModule.forRoot()
     ],
     exports: [
-        ...exports
+        ...exports,
+        BlockUIModule
     ]
 })
 export class LibrariesModule { }
