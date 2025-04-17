@@ -5,12 +5,26 @@ import {NotFoundComponent} from './ctx-layout/pages/notfound/notfound.component'
 import {AppLayout} from './ctx-layout/layout/component/app.layout.component';
 import {LoginComponent} from './ctx-auth/pages/login/login.component';
 import {SignUpComponent} from './ctx-auth/pages/sign-up/sign-up.component';
+import {DashboardProfessorComponent} from './ctx-dashboards/pages/dashboard-professor/dashboard-professor.component';
+import {ListarExerciciosComponent} from './ctx-faculdades/exercicios/pages';
 
 export const routes: Routes = [
   {
     path: '',
     component: AppLayout,
     children: [
+      {
+        path: 'dashboards',
+        children: [
+          {path: 'professor', component: DashboardProfessorComponent},
+        ]
+      },
+      {
+        path: 'faculdades',
+        children: [
+          {path: 'exercicios', component: ListarExerciciosComponent},
+        ]
+      }
     ]
   },
   {path: 'login', component: LoginComponent},

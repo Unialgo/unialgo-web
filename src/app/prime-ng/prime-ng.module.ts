@@ -53,6 +53,7 @@ import {TimelineModule} from 'primeng/timeline';
 import {TreeModule} from 'primeng/tree';
 import {TreeTableModule} from 'primeng/treetable';
 import {ScrollerModule} from 'primeng/scroller';
+import {CalendarModule} from 'primeng/calendar';
 
 // Panel
 import {AccordionModule} from 'primeng/accordion';
@@ -174,6 +175,7 @@ const dataImports = [
     TreeModule,
     TreeTableModule,
     ScrollerModule,
+    CalendarModule,
 ];
 
 const panelImports = [

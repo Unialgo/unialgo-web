@@ -1,25 +1,50 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {LayoutService} from '../../../ctx-layout/layout/service/layout.service';
+import { AuthService, LoginRequest } from '../../../api/auth';
+import { LayoutService } from '../../../ctx-layout/layout/service/layout.service';
 
 @Component({
     selector: 'app-auth-login',
     templateUrl: 'login.component.html',
     standalone: false
 })
-
 export class LoginComponent implements OnInit {
-    constructor(public layoutService: LayoutService,
-        private router: Router) { }
+    form!: FormGroup;
 
-    ngOnInit(): void { }
-
-    onClickLogin(): void {
-        this.router.navigate(['/'])
+    constructor(
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        public layoutService: LayoutService,
+        private router: Router
+    ) {
+        this.criarFormulario();
     }
+
+    ngOnInit(): void {}
 
     verificarTemaEscuro(): boolean {
         return this.layoutService.isDarkTheme() ?? false;
+    }
+
+    onClickLogin(): void {
+        const request: LoginRequest = {
+            email: this.form.value.email,
+            password: this.form.value.password
+        };
+
+        if (request) {
+            this.authService.login(request).subscribe(() => {
+                this.router.navigateByUrl('/');
+            });
+        }
+    }
+
+    private criarFormulario(): void {
+        this.form = this.formBuilder.group({
+            email: [null, Validators.required],
+            password: [null, Validators.required]
+        });
     }
 }

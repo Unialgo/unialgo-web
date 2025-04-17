@@ -1,0 +1,68 @@
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+
+import {Table} from 'primeng/table';
+
+@Component({
+    selector: 'ctx-exercicios-listar-exercicios',
+    templateUrl: 'listar-exercicios.component.html',
+    standalone: false,
+})
+
+export class ListarExerciciosComponent implements OnInit {
+    @ViewChild('dt') dt!: Table;
+    searchValue: string = '';
+    exercises: any;
+
+    constructor() { }
+
+    ngOnInit() {
+        this.exercises = mockData;
+    }
+
+    onGlobalFilter(table: Table, event: Event): void {
+        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+    }
+
+    clear(table: Table): void {
+        table.clear();
+        this.searchValue = '';
+    }
+}
+
+const mockData = [
+    {
+        id: 'a1b2c3d4-e5f6-7890-ab12-cd34ef56gh78',
+        userId: '123e4567-e89b-12d3-a456-426614174000',
+        status: 1,
+        titulo: 'Título de Exemplo 1',
+        enunciado: 'Este é o enunciado da primeira questão de teste.'
+    },
+    {
+        id: '98eecff1-4b78-4b32-a1f0-cc3432ddae5d',
+        userId: '223e4567-e89b-12d3-a456-426614174001',
+        status: 2,
+        titulo: 'Título de Exemplo 2',
+        enunciado: 'Este é o enunciado da segunda questão de teste.'
+    },
+    {
+        id: '11fd2c56-3347-4b6d-a654-c8123fd872f2',
+        userId: '323e4567-e89b-12d3-a456-426614174002',
+        status: 0,
+        titulo: 'Título de Exemplo 3',
+        enunciado: 'Este é o enunciado da terceira questão de teste.'
+    },
+    {
+        id: 'c43acdef-6c52-4c20-a77f-bf999f781263',
+        userId: '423e4567-e89b-12d3-a456-426614174003',
+        status: 3,
+        titulo: 'Título de Exemplo 4',
+        enunciado: 'Este é o enunciado da quarta questão de teste.'
+    },
+    {
+        id: 'fab45d90-129f-451b-93a7-bcfe20d88010',
+        userId: '523e4567-e89b-12d3-a456-426614174004',
+        status: 1,
+        titulo: 'Título de Exemplo 5',
+        enunciado: 'Este é o enunciado da quinta questão de teste.'
+    }
+];

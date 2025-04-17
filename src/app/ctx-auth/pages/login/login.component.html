@@ -41,30 +41,32 @@
                         <div class="col text-center pb-2">
                             <h2>Welcome Back!</h2>
                         </div>
-                        <div class="col text-center pb-4">
-                            <p-iconfield>
-                                <div class="flex" style="flex-direction: column">
-                                    <p-inputicon styleClass="pi pi-user" />
-                                    <input type="text" placeholder="E-mail" pInputText />
-                                </div>
-                            </p-iconfield>
-                        </div>
-                        <div class="col text-center pb-4">
-                            <p-iconfield>
-                                <div class="flex" style="flex-direction: column">
-                                    <p-inputicon styleClass="pi pi-lock" />
-                                    <input type="password" placeholder="Password" pInputText [autofocus]="false" />
-                                </div>
-                            </p-iconfield>
-                            <div style="justify-content: end; text-align: end">
-                                <a href="/">
-                                    <span class="text-xs"><b class="redirect-link">Forgot Your Password?</b></span>
-                                </a>
+                        <form [formGroup]="form">
+                            <div class="col text-center pb-4">
+                                <p-iconfield>
+                                    <div class="flex" style="flex-direction: column">
+                                        <p-inputicon styleClass="pi pi-user" />
+                                        <input type="text" placeholder="E-mail" formControlName="email" pInputText />
+                                    </div>
+                                </p-iconfield>
                             </div>
-                        </div>
-                        <div class="col text-center pt-4 pb-4">
-                            <p-button class="bg-primary" styleClass="login-button" (click)="onClickLogin()">Login</p-button>
-                        </div>
+                            <div class="col text-center pb-4">
+                                <p-iconfield>
+                                    <div class="flex" style="flex-direction: column">
+                                        <p-inputicon styleClass="pi pi-lock" />
+                                        <input type="password" [autofocus]="false" placeholder="Password" formControlName="password" pInputText />
+                                    </div>
+                                </p-iconfield>
+                                <div style="justify-content: end; text-align: end">
+                                    <a href="/">
+                                        <span class="text-xs"><b class="redirect-link">Forgot Your Password?</b></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col text-center pt-4 pb-4">
+                                <p-button class="bg-primary" styleClass="login-button" (click)="onClickLogin()">Login</p-button>
+                            </div>
+                        </form>
                         <div class="col text-center pt-8 font-bold">
                             <p class="text-sm">
                                 Not a member?<a href="/sign-up"><span class="redirect-link"> Register now</span></a>

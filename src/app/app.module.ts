@@ -13,6 +13,9 @@ import {PrimeNGModule} from './prime-ng/prime-ng.module';
 import {AppRoutingModule, routes} from './app-routing.module';
 import {AuthModule} from './ctx-auth/auth.module';
 import {LibrariesModule} from './libraries/libraries.module';
+import {DashboardModule} from './ctx-dashboards/dashboard.module';
+import {FormsModule} from '@angular/forms';
+import {FaculdadesModule} from './ctx-faculdades/faculdades.module';
 
 const components = [
   AppComponent
@@ -20,6 +23,7 @@ const components = [
 
 const foreignModules = [
   BrowserModule,
+  FormsModule
 ];
 
 const localModules = [
@@ -27,7 +31,9 @@ const localModules = [
   LayoutModule,
   AuthModule,
   PrimeNGModule,
-  LibrariesModule
+  LibrariesModule,
+  DashboardModule,
+  FaculdadesModule
 ];
 
 @NgModule({
