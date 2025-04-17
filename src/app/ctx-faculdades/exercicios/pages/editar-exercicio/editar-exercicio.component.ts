@@ -5,6 +5,7 @@ import {MessageService} from 'primeng/api';
 
 import {Exercicio} from '../../../../api/faculdade';
 import {ModalBaseAbstract} from '../../../../libraries/abstracts';
+import {LoadingService} from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
     selector: 'ctx-faculdade-editar-exercicio',
@@ -17,11 +18,12 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
 
     constructor(
         protected override messageService: MessageService,
+        protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder) {
-        super(messageService, formBuilder);
+        super(messageService, loadingService, formBuilder);
     }
 
-    ngOnInit(): void { 
+    ngOnInit(): void {
         this.criarFormulario();
         this.carregarFormulario();
     }
@@ -30,7 +32,7 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.block('Cancelando')
         setTimeout(() => {this.unlock()}, 1000)
     }
-    
+
     onClickSalvar(): void {
         this.block('Salvando')
         setTimeout(() => {this.unlock()}, 1000)

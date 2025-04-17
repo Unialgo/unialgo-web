@@ -3,6 +3,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {MessageService} from 'primeng/api';
 import {ReactiveFormAbstract} from './reactive-form.abstract';
+import {LoadingService} from '../../ctx-layout/layout/service/loading.service';
 
 @Component({template: ''})
 export abstract class ModalBaseAbstract extends ReactiveFormAbstract {
@@ -13,8 +14,9 @@ export abstract class ModalBaseAbstract extends ReactiveFormAbstract {
 
     constructor(
         protected override messageService: MessageService,
+        protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder) {
-        super(messageService, formBuilder);
+        super(messageService, loadingService, formBuilder,);
     }
 
     notifyConclusion(resultado: any): void {

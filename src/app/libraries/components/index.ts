@@ -1,1 +1,1 @@
-export * from './block.component';
+export * from './app-loading/loading-overlay.component';

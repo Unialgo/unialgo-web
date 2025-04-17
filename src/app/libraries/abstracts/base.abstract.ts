@@ -2,20 +2,21 @@ import {Component} from '@angular/core';
 
 import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {MessageService, ToastMessageOptions} from 'primeng/api';
+import {LoadingService} from '../../ctx-layout/layout/service/loading.service';
 
 @Component({template: ''})
 export abstract class BaseAbstract {
-    @BlockUI() private blockUI: NgBlockUI;
     public errors: any[] = [];
 
-    constructor(protected messageService: MessageService) { }
+    constructor(protected messageService: MessageService,
+        protected loadingService: LoadingService) { }
 
     protected async block(message?: any): Promise<void> {
-        this.blockUI.start(message);
+        this.loadingService.start(message);
     }
 
     protected async unlock(): Promise<void> {
-        this.blockUI.stop();
+        this.loadingService.stop();
     }
 
     protected async notify(color: string, message: string): Promise<void> {

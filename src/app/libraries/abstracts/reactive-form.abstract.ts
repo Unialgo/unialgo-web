@@ -5,6 +5,7 @@ import {MessageService} from 'primeng/api';
 
 import {BaseAbstract} from './base.abstract';
 import {FormValidation} from '../utils';
+import {LoadingService} from '../../ctx-layout/layout/service/loading.service';
 
 
 @Component({template: ''})
@@ -16,8 +17,9 @@ export abstract class ReactiveFormAbstract extends BaseAbstract {
 
     constructor(
         protected override messageService: MessageService,
+        protected override loadingService: LoadingService,
         protected formBuilder: FormBuilder) {
-        super(messageService)
+        super(messageService, loadingService)
     }
 
     protected setValidationMessages(messages: {[key: string]: {[key: string]: string}}): void {

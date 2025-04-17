@@ -2,14 +2,15 @@ import {NgModule} from "@angular/core";
 
 import {BlockUIModule} from 'ng-block-ui';
 
-import {BlockComponent} from "./components";
+import {LoadingOverlayComponent} from "./components";
+import {CommonModule} from "@angular/common";
 
 const exports = [
-    BlockComponent
+    LoadingOverlayComponent
 ];
 
-const imports: never[] = [
-   
+const imports = [
+   CommonModule
 ]
 
 @NgModule({
@@ -18,11 +19,9 @@ const imports: never[] = [
     ],
     imports: [
         ...imports,
-        BlockUIModule.forRoot()
     ],
     exports: [
         ...exports,
-        BlockUIModule
     ]
 })
 export class LibrariesModule { }
