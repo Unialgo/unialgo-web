@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <button type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded flex items-center"><i class="pi pi-plus mr-2"></i> Create</button>
+        <p-button severity="success" label="Create" icon="pi pi-plus" (onClick)="onClickAdicionar()" pRipple/>
     </ng-template>
     <ng-template #end>
         <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear Filters" (click)="clear(dt)" />
@@ -51,6 +51,12 @@
         </tr>
     </ng-template>
 </p-table>
+
+<ctx-faculdade-adicionar-cenario-de-teste *ngIf="adicionarVisible" 
+        [visible]="adicionarVisible"
+        (visibleEvent)="onAdicionarVisibleEvent($event)" 
+        (successEvent)="onAdicionarSuccessEvent($event)" 
+        (cancelationEvent)="onAdicionarCancelationEvent($event)"/>
 
 <ctx-faculdade-editar-cenario-de-teste *ngIf="editarVisible && selectedCase" 
         [visible]="editarVisible" [cenario]="selectedCase"

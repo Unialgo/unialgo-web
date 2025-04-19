@@ -14,6 +14,7 @@ export class ListarCenariosDeTesteComponent implements OnInit {
     @Input() exercicioId: string;
     searchValue: string = '';
 
+    adicionarVisible: boolean = false;
     editarVisible: boolean = false;
 
     cases!: CenarioDeTeste[];
@@ -33,6 +34,21 @@ export class ListarCenariosDeTesteComponent implements OnInit {
     clear(table: Table): void {
         table.clear();
         this.searchValue = '';
+    }
+
+    onClickAdicionar() {
+      this.adicionarVisible = true;
+    }
+    onAdicionarVisibleEvent(event: any): void {
+      this.adicionarVisible = false;
+    }
+
+    onAdicionarSuccessEvent(event: any): void {
+      this.adicionarVisible = false;
+    }
+
+    onAdicionarCancelationEvent(event: any): void {
+      this.adicionarVisible = false;
     }
 
     onClickEditar(CenarioDeTeste: CenarioDeTeste) {
