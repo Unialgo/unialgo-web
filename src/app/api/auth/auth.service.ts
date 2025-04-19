@@ -5,13 +5,18 @@ import { map } from 'rxjs';
 import moment from 'moment';
 
 import { LoginRequest } from '.';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    get url(): string {
+        return environment.authApiUrl;
+    }
+
     constructor(private http: HttpClient) {}
 
     public login(request: LoginRequest) {
-        return this.http.post<any>('http://localhost:8180/login', { ...request }).pipe(
+        return this.http.post<any>(`${this.url}/public/users/login`, { ...request }).pipe(
             map((o) => {
                 this.setSession(o);
             })
