@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
-import {BlockUI, NgBlockUI} from 'ng-block-ui';
 import {MessageService, ToastMessageOptions} from 'primeng/api';
+
 import {LoadingService} from '../../ctx-layout/layout/service/loading.service';
 
 @Component({template: ''})

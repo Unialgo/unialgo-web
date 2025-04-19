@@ -3,17 +3,17 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
-import { Exercicio } from '../../../../api/faculdade';
+import { CenarioDeTeste } from '../../../../api/faculdade';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
-    selector: 'ctx-faculdade-editar-exercicio',
-    templateUrl: 'editar-exercicio.component.html',
+    selector: 'ctx-faculdade-editar-cenario-de-teste',
+    templateUrl: 'editar-cenario-de-teste.component.html',
     standalone: false
 })
-export class EditarExercicioComponent extends ModalBaseAbstract implements OnInit {
-    @Input({ required: true }) exercicio!: Exercicio;
+export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements OnInit {
+    @Input({ required: true }) cenario!: CenarioDeTeste;
 
     constructor(
         protected override messageService: MessageService,
@@ -36,21 +36,23 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.block('Salvando');
         setTimeout(() => {
             this.unlock();
-            this.notifySuccess(true)
+            this.notifySuccess(true);
         }, 1000);
     }
 
     private criarFormulario(): void {
         this.form = this.formBuilder.group({
-            titulo: [null, Validators.required],
-            enunciado: [null, Validators.required]
+            codigo: [null, Validators.required],
+            input: [null, Validators.required],
+            output: [null, Validators.required]
         });
     }
 
     private carregarFormulario(): void {
         this.form.patchValue({
-            titulo: this.exercicio.titulo,
-            enunciado: this.exercicio.enunciado
+            codigo: this.cenario.codigo,
+            input: JSON.stringify(this.cenario.input),
+            output: JSON.stringify(this.cenario.output)
         });
     }
 }

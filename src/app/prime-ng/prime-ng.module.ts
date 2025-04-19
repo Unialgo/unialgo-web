@@ -110,7 +110,6 @@ import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {BadgeModule} from 'primeng/badge';
 import {OverlayBadgeModule} from 'primeng/overlaybadge';
-import {BlockUIModule} from 'primeng/blockui';
 import {ChipModule} from 'primeng/chip';
 import {FocusTrapModule} from 'primeng/focustrap';
 import {FluidModule} from 'primeng/fluid';
@@ -240,7 +239,6 @@ const miscImports = [
     AvatarGroupModule,
     BadgeModule,
     OverlayBadgeModule,
-    BlockUIModule,
     ChipModule,
     FocusTrapModule,
     FluidModule,

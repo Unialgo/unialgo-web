@@ -3,12 +3,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {PrimeNGModule} from "../../prime-ng/prime-ng.module";
 import {LibrariesModule} from "../../libraries/libraries.module";
-import {EditarExercicioComponent, ListarExerciciosComponent} from "./pages";
-import { CenariosdeTesteModule } from "../cenarios-de-teste/cenarios-de-teste.module";
+import { EditarCenarioDeTesteComponent, ListarCenariosDeTesteComponent } from "./pages";
 
 const exports = [
-    EditarExercicioComponent,
-    ListarExerciciosComponent,
+    ListarCenariosDeTesteComponent,
+    EditarCenarioDeTesteComponent
 ];
 
 const imports = [
@@ -16,7 +15,6 @@ const imports = [
     FormsModule,
     ReactiveFormsModule,
     LibrariesModule,
-    CenariosdeTesteModule
 ]
 
 @NgModule({
@@ -30,4 +28,4 @@ const imports = [
         ...exports
     ]
 })
-export class ExerciciosModule { }
+export class CenariosdeTesteModule { }

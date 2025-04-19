@@ -1,17 +1,20 @@
-<p-dialog [(visible)]="visible" draggable="false" (onHide)="onHide()" [style]="{ width: '60vw', 'height': '70vh' }" header="Editar Exercicio" [modal]="true">
+<p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()" [style]="{ width: '80vw', height: '100vh' }" header="Editar Exercicio" [modal]="true">
     <ng-template #content>
-        <div class="flex">
-            <form [formGroup]="form">
-                <div>
+        <form [formGroup]="form">
+            <div class="grid">
+                <div class="col-12">
                     <label for="titulo" class="block font-bold mb-3">Título</label>
                     <input type="text" pInputText id="titulo" formControlName="titulo" />
                 </div>
-                <div>
+                <div class="col-12">
                     <label for="enunciado" class="block font-bold mb-3">Enunciado</label>
-                    <textarea id="enunciado" pTextarea formControlName="enunciado"></textarea>
+                    <textarea class="w-full" id="enunciado" pTextarea formControlName="enunciado"></textarea>
                 </div>
-            </form>
-        </div>
+                <div class="col-12">
+                    <ctx-faculdade-listar-cenarios-de-teste />
+                </div>
+            </div>
+        </form>
     </ng-template>
     <ng-template pTemplate="footer">
         <div class="w-full flex justify-between items-center gap-2">
