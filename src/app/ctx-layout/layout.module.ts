@@ -10,7 +10,7 @@ const exports = [
 
 const imports = [
     PrimeNGModule,
-    AppFloatingConfigurator
+    AppFloatingConfigurator,
 ]
 
 @NgModule({

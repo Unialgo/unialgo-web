@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
     onClickLogin(): void {
         const request: LoginRequest = {
-            email: this.form.value.email,
+            username: this.form.value.email,
             password: this.form.value.password
         };
 

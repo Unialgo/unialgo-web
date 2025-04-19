@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {provideHttpClient, withFetch} from '@angular/common/http';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
@@ -14,7 +15,6 @@ import {AppRoutingModule, routes} from './app-routing.module';
 import {AuthModule} from './ctx-auth/auth.module';
 import {LibrariesModule} from './libraries/libraries.module';
 import {DashboardModule} from './ctx-dashboards/dashboard.module';
-import {FormsModule} from '@angular/forms';
 import {FaculdadesModule} from './ctx-faculdades/faculdades.module';
 
 const components = [
@@ -23,7 +23,7 @@ const components = [
 
 const foreignModules = [
   BrowserModule,
-  FormsModule
+  FormsModule,
 ];
 
 const localModules = [
@@ -42,13 +42,13 @@ const localModules = [
   ],
   imports: [
     ...foreignModules,
-    ...localModules
+    ...localModules,
   ],
   providers: [
     provideRouter(routes, withInMemoryScrolling({anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled'}), withEnabledBlockingInitialNavigation()),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    providePrimeNG({theme: {preset: Aura, options: {darkModeSelector: '.app-dark'}}})
+    providePrimeNG({theme: {preset: Aura, options: {darkModeSelector: '.app-dark'}}}),
   ],
   bootstrap: [AppComponent]
 })

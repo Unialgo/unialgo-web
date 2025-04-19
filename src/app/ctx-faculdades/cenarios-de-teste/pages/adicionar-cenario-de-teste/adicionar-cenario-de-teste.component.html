@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="visible" maximizable="true" resizable="false" draggable="false" (onHide)="onHide()" [style]="{ width: '60vw', height: '70vh' }" header="Adicionar Cenário de Teste" [modal]="true">
+    <ng-template #content>
+        <form [formGroup]="form">
+            <div class="grid">
+                <div class="col-12">
+                    <label for="codigo" class="block font-bold mb-3">Código</label>
+                    <input type="text" pInputText id="codigo" formControlName="codigo" />
+                </div>
+                <div class="col-12">
+                    <label for="input" class="block font-bold mb-3">Input</label>
+                    <textarea class="w-full" id="input" pTextarea formControlName="input"></textarea>
+                </div>
+                <div class="col-12">
+                    <label for="output" class="block font-bold mb-3">Output</label>
+                    <textarea class="w-full" id="output" pTextarea formControlName="output"></textarea>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="w-full flex justify-between items-center gap-2">
+            <p-button severity="secondary" (onClick)="onClickCancelar()" pRipple>Cancelar</p-button>
+            <p-button severity="primary" (onClick)="onClickSalvar()" pRipple>Salvar</p-button>
+        </div>
+    </ng-template>
+</p-dialog>

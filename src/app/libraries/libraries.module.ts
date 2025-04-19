@@ -1,10 +1,14 @@
 import {NgModule} from "@angular/core";
 
+import {LoadingOverlayComponent} from "./components";
+import {CommonModule} from "@angular/common";
 
-const exports: never[] = [
+const exports = [
+    LoadingOverlayComponent
 ];
 
-const imports: never[] = [
+const imports = [
+   CommonModule
 ]
 
 @NgModule({
@@ -12,10 +16,10 @@ const imports: never[] = [
         ...exports
     ],
     imports: [
-        ...imports
+        ...imports,
     ],
     exports: [
-        ...exports
+        ...exports,
     ]
 })
 export class LibrariesModule { }
