@@ -1,14 +1,17 @@
 import {NgModule} from "@angular/core";
-
-import {LoadingOverlayComponent} from "./components";
 import {CommonModule} from "@angular/common";
 
+import { PrimeNGModule } from "../prime-ng/prime-ng.module";
+import {AppNotificationComponent, LoadingOverlayComponent} from "./components";
+
 const exports = [
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    AppNotificationComponent
 ];
 
 const imports = [
-   CommonModule
+   CommonModule,
+   PrimeNGModule
 ]
 
 @NgModule({

@@ -3,7 +3,8 @@
         <p-button severity="success" label="Create" icon="pi pi-plus" pRipple/>
     </ng-template>
     <ng-template #end>
-        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear Filters" (click)="clear(dt)" />
+        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear Filters" (click)="onClickClear(dt)" />
+        <p-button class="pl-2" [outlined]="true" icon="pi pi-refresh" (click)="onClickAtualizar()" />
     </ng-template>
 </p-toolbar>
 

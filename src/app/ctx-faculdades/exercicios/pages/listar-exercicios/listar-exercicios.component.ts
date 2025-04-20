@@ -1,15 +1,18 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {Table} from 'primeng/table';
-import {Exercicio} from '../../../../api/faculdade';
+import { Table } from 'primeng/table';
+import { MessageService } from 'primeng/api';
+
+import { Exercicio } from '../../../../api/faculdade';
+import { BaseAbstract, NotificationType } from '../../../../libraries/abstracts';
+import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
     selector: 'ctx-faculdade-listar-exercicios',
     templateUrl: 'listar-exercicios.component.html',
-    standalone: false,
+    standalone: false
 })
-
-export class ListarExerciciosComponent implements OnInit {
+export class ListarExerciciosComponent extends BaseAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
     searchValue: string = '';
 
@@ -19,7 +22,9 @@ export class ListarExerciciosComponent implements OnInit {
     selectedExercise: Exercicio | null = null;
     selectedExercises: Exercicio[] = [];
 
-    constructor() { }
+    constructor(messageService: MessageService, loadingService: LoadingService) {
+        super(messageService, loadingService);
+    }
 
     ngOnInit() {
         this.exercises = mockData;
@@ -29,9 +34,17 @@ export class ListarExerciciosComponent implements OnInit {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
-    clear(table: Table): void {
+    onClickClear(table: Table): void {
+        this.notify(NotificationType.SUCCESS, undefined, 'Filtros removidos com sucesso.');
         table.clear();
         this.searchValue = '';
+    }
+
+    onClickAtualizar(): void {
+        this.block('Carregando...');
+        setTimeout(() => {
+            this.unlock();
+        }, 500);
     }
 
     onClickEditar(exercicio: Exercicio) {

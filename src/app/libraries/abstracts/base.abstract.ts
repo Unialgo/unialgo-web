@@ -1,15 +1,17 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {MessageService, ToastMessageOptions} from 'primeng/api';
+import { MessageService, ToastMessageOptions } from 'primeng/api';
 
-import {LoadingService} from '../../ctx-layout/layout/service/loading.service';
+import { LoadingService } from '../../ctx-layout/layout/service/loading.service';
 
-@Component({template: ''})
+@Component({ template: '' })
 export abstract class BaseAbstract {
     public errors: any[] = [];
 
-    constructor(protected messageService: MessageService,
-        protected loadingService: LoadingService) { }
+    constructor(
+        protected messageService: MessageService,
+        protected loadingService: LoadingService
+    ) {}
 
     protected async block(message?: any): Promise<void> {
         this.loadingService.start(message);
@@ -19,14 +21,15 @@ export abstract class BaseAbstract {
         this.loadingService.stop();
     }
 
-    protected async notify(color: string, message: string): Promise<void> {
+    protected async notify(color: string, title?: string, message?: string): Promise<void> {
         await this.unlock();
-        this.messageService.add({severity: color, detail: message});
+        const notificationType = color[0].toLocaleUpperCase() + color.slice(1);
+        this.messageService.add({ severity: color, summary: title ?? notificationType, detail: message });
     }
 
     protected async notifyMultiple(color: string, messages: string[]): Promise<void> {
         await this.unlock();
-        this.messageService.addAll(messages.map(message => ({severity: color, detail: message}) as ToastMessageOptions));
+        this.messageService.addAll(messages.map((message) => ({ severity: color, detail: message }) as ToastMessageOptions));
     }
 
     protected async notifyMessages(): Promise<void> {
