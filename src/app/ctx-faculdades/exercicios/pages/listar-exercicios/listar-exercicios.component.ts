@@ -4,7 +4,7 @@ import { Table } from 'primeng/table';
 import { MessageService } from 'primeng/api';
 
 import { Exercicio } from '../../../../api/faculdade';
-import { BaseAbstract, NotificationType } from '../../../../libraries/abstracts';
+import { EntityListAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
@@ -12,11 +12,8 @@ import { LoadingService } from '../../../../ctx-layout/layout/service/loading.se
     templateUrl: 'listar-exercicios.component.html',
     standalone: false
 })
-export class ListarExerciciosComponent extends BaseAbstract implements OnInit {
+export class ListarExerciciosComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
-    searchValue: string = '';
-
-    editarVisible: boolean = false;
 
     exercises!: Exercicio[];
     selectedExercise: Exercicio | null = null;
@@ -28,16 +25,6 @@ export class ListarExerciciosComponent extends BaseAbstract implements OnInit {
 
     ngOnInit() {
         this.exercises = mockData;
-    }
-
-    onGlobalFilter(table: Table, event: Event): void {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
-
-    onClickClear(table: Table): void {
-        this.notify(NotificationType.SUCCESS, undefined, 'Filtros removidos com sucesso.');
-        table.clear();
-        this.searchValue = '';
     }
 
     onClickAtualizar(): void {

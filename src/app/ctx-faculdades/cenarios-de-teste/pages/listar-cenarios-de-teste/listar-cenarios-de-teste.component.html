@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <p-button severity="success" label="Create" icon="pi pi-plus" (onClick)="onClickAdicionar()" pRipple/>
+        <p-button severity="success" [outlined]="true" label="Create" icon="pi pi-plus" (onClick)="onClickAdicionar()" pRipple />
     </ng-template>
     <ng-template #end>
         <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear Filters" (click)="onClickClear(dt)" />
@@ -53,22 +53,28 @@
     </ng-template>
 </p-table>
 
-<ctx-faculdade-adicionar-cenario-de-teste *ngIf="adicionarVisible" 
-        [visible]="adicionarVisible"
-        (visibleEvent)="onAdicionarVisibleEvent($event)" 
-        (successEvent)="onAdicionarSuccessEvent($event)" 
-        (cancelationEvent)="onAdicionarCancelationEvent($event)"/>
+<ctx-faculdade-adicionar-cenario-de-teste
+    *ngIf="adicionarVisible"
+    [visible]="adicionarVisible"
+    (visibleEvent)="onAdicionarVisibleEvent($event)"
+    (successEvent)="onAdicionarSuccessEvent($event)"
+    (cancelationEvent)="onAdicionarCancelationEvent($event)"
+/>
 
-<ctx-faculdade-editar-cenario-de-teste *ngIf="editarVisible && selectedCase" 
-        [visible]="editarVisible" [cenario]="selectedCase"
-        (visibleEvent)="onEditarVisibleEvent($event)" 
-        (successEvent)="onEditarSuccessEvent($event)" 
-        (cancelationEvent)="onEditarCancelationEvent($event)"/>
+<ctx-faculdade-editar-cenario-de-teste
+    *ngIf="editarVisible && selectedCase"
+    [visible]="editarVisible"
+    [cenario]="selectedCase"
+    (visibleEvent)="onEditarVisibleEvent($event)"
+    (successEvent)="onEditarSuccessEvent($event)"
+    (cancelationEvent)="onEditarCancelationEvent($event)"
+/>
 
-
-<ctx-faculdade-excluir-cenario-de-teste *ngIf="excluirVisible && selectedCase" 
-        [visible]="excluirVisible" [cenario]="selectedCase"
-        (visibleEvent)="onExcluirVisibleEvent($event)" 
-        (successEvent)="onExcluirSuccessEvent($event)" 
-        (cancelationEvent)="onExcluirCancelationEvent($event)"/>
-
+<ctx-faculdade-excluir-cenario-de-teste
+    *ngIf="excluirVisible && selectedCase"
+    [visible]="excluirVisible"
+    [cenario]="selectedCase"
+    (visibleEvent)="onExcluirVisibleEvent($event)"
+    (successEvent)="onExcluirSuccessEvent($event)"
+    (cancelationEvent)="onExcluirCancelationEvent($event)"
+/>

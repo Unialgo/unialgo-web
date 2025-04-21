@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <p-button severity="success" label="Create" icon="pi pi-plus" pRipple/>
+        <p-button severity="success" [outlined]="true" label="Create" icon="pi pi-plus" pRipple />
     </ng-template>
     <ng-template #end>
         <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear Filters" (click)="onClickClear(dt)" />
@@ -53,8 +53,11 @@
     </ng-template>
 </p-table>
 
-<ctx-faculdade-editar-exercicio *ngIf="editarVisible && selectedExercise" 
-        [visible]="editarVisible" [exercicio]="selectedExercise"
-        (visibleEvent)="onEditarVisibleEvent($event)" 
-        (successEvent)="onEditarSuccessEvent($event)" 
-        (cancelationEvent)="onEditarCancelationEvent($event)"/>
+<ctx-faculdade-editar-exercicio
+    *ngIf="editarVisible && selectedExercise"
+    [visible]="editarVisible"
+    [exercicio]="selectedExercise"
+    (visibleEvent)="onEditarVisibleEvent($event)"
+    (successEvent)="onEditarSuccessEvent($event)"
+    (cancelationEvent)="onEditarCancelationEvent($event)"
+/>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { MessageService, ToastMessageOptions } from 'primeng/api';
 
+import { NotificationType } from '../enums';
 import { LoadingService } from '../../ctx-layout/layout/service/loading.service';
 
 @Component({ template: '' })
@@ -58,10 +59,4 @@ export abstract class BaseAbstract {
     protected clearErrors(): void {
         this.errors = [];
     }
-}
-
-export class NotificationType {
-    public static readonly SUCCESS = 'success';
-    public static readonly ERROR = 'error';
-    public static readonly WARNING = 'warn';
 }
