@@ -46,7 +46,7 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
 
         this.block();
         const request: SignupRequest = {
-            username: this.form.value.email,
+            username: this.form.value.username,
             password: this.form.value.password,
             role: 'TEACHER'
             // TODO :: Definir como será diferenciado no cadadastro
@@ -60,14 +60,14 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
             },
             (error) => {
                 this.unlock();
-                this.notify(NotificationType.ERROR, error);
+                this.notify(NotificationType.ERROR, error.message);
             }
         );
     }
 
     private criarFormulario(): void {
         this.form = this.formBuilder.group({
-            email: [null, Validators.required],
+            username: [null, Validators.required],
             password: [null, Validators.required],
             confirmationPassword: [null, Validators.required]
         });
