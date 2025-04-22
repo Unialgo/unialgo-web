@@ -1,25 +1,75 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {LayoutService} from '../../../ctx-layout/layout/service/layout.service';
+import { AuthService } from '../../../api/auth';
+import { ReactiveFormAbstract } from '../../../libraries/abstracts';
+import { SignupRequest } from '../../../api/auth/requests/signup-request';
+import { LayoutService } from '../../../ctx-layout/layout/service/layout.service';
+import { MessageService } from 'primeng/api';
+import { LoadingService } from '../../../ctx-layout/layout/service/loading.service';
+import { NotificationType } from '../../../libraries/enums';
 
 @Component({
     selector: 'app-auth-sign-up',
     templateUrl: 'sign-up.component.html',
     standalone: false
 })
+export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
+    constructor(
+        messageService: MessageService,
+        loadingService: LoadingService,
+        formBuilder: FormBuilder,
+        private authService: AuthService,
+        public layoutService: LayoutService,
+        private router: Router
+    ) {
+        super(messageService, loadingService, formBuilder);
+    }
 
-export class SignUpComponent implements OnInit {
-    constructor(public layoutService: LayoutService,
-        private router: Router) { }
-
-    ngOnInit(): void { }
-
-    onClickLogin(): void {
-        this.router.navigate(['/'])
+    ngOnInit(): void {
+        this.criarFormulario();
     }
 
     verificarTemaEscuro(): boolean {
         return this.layoutService.isDarkTheme() ?? false;
+    }
+
+    async onClickSignUp(): Promise<void> {
+        if (await this.onClientFailed()) {
+            return;
+        }
+
+        if (this.form.value.password != this.form.value.confirmationPassword) {
+            this.notify(NotificationType.ERROR, 'Senhas não coincidem.');
+        }
+
+        this.block();
+        const request: SignupRequest = {
+            username: this.form.value.email,
+            password: this.form.value.password,
+            role: 'TEACHER'
+            // TODO :: Definir como será diferenciado no cadadastro
+            // role: 'TEACHER' || 'STUDENT'
+        };
+
+        this.authService.signup(request).subscribe(
+            () => {
+                this.unlock();
+                this.router.navigateByUrl('/login');
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error);
+            }
+        );
+    }
+
+    private criarFormulario(): void {
+        this.form = this.formBuilder.group({
+            email: [null, Validators.required],
+            password: [null, Validators.required],
+            confirmationPassword: [null, Validators.required]
+        });
     }
 }
