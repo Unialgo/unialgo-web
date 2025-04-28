@@ -34,6 +34,23 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
         }, 500);
     }
 
+    onClickAdicionar(): void {
+        this.adicionarVisible = true;
+    }
+
+    onAdicionarVisibleEvent(event: any): void {
+        this.adicionarVisible = false;
+    }
+
+    onAdicionarSuccessEvent(event: any): void {
+        this.adicionarVisible = false;
+        this.onClickAtualizar();
+    }
+
+    onAdicionarCancelationEvent(event: any): void {
+        this.adicionarVisible = false;
+    }
+
     onClickEditar(exercicio: Exercicio) {
         this.selectedExercise = exercicio;
         this.editarVisible = true;
@@ -51,6 +68,27 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
 
     onEditarCancelationEvent(event: any): void {
         this.editarVisible = false;
+        this.selectedExercise = null;
+    }
+
+    onClickExcluir(exercicio: Exercicio) {
+        this.selectedExercise = exercicio;
+        this.excluirVisible = true;
+    }
+
+    onExcluirVisibleEvent(event: any): void {
+        this.excluirVisible = false;
+        this.selectedExercise = null;
+    }
+
+    onExcluirSuccessEvent(event: any): void {
+        this.excluirVisible = false;
+        this.selectedExercise = null;
+        this.onClickAtualizar();
+    }
+
+    onExcluirCancelationEvent(event: any): void {
+        this.excluirVisible = false;
         this.selectedExercise = null;
     }
 }
