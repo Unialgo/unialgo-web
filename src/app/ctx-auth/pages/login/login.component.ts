@@ -1,44 +1,52 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+
+import { MessageService } from 'primeng/api';
 
 import { AuthService, LoginRequest } from '../../../api/auth';
+import { ReactiveFormAbstract } from '../../../libraries/abstracts';
 import { LayoutService } from '../../../ctx-layout/layout/service/layout.service';
+import { LoadingService } from '../../../ctx-layout/layout/service/loading.service';
 
 @Component({
     selector: 'app-auth-login',
     templateUrl: 'login.component.html',
     standalone: false
 })
-export class LoginComponent implements OnInit {
-    form!: FormGroup;
-
+export class LoginComponent extends ReactiveFormAbstract implements OnInit {
     constructor(
-        private formBuilder: FormBuilder,
+        messageService: MessageService,
+        loadingService: LoadingService,
+        formBuilder: FormBuilder,
         private authService: AuthService,
         public layoutService: LayoutService,
         private router: Router
     ) {
-        this.criarFormulario();
+        super(messageService, loadingService, formBuilder);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.criarFormulario();
+    }
 
     verificarTemaEscuro(): boolean {
         return this.layoutService.isDarkTheme() ?? false;
     }
 
-    onClickLogin(): void {
+    async onClickLogin(): Promise<void> {
+        if (await this.onClientFailed()) {
+            return;
+        }
+
         const request: LoginRequest = {
             username: this.form.value.email,
             password: this.form.value.password
         };
 
-        if (request) {
-            this.authService.login(request).subscribe(() => {
-                this.router.navigateByUrl('/');
-            });
-        }
+        this.authService.login(request).subscribe(() => {
+            this.router.navigateByUrl('/');
+        });
     }
 
     private criarFormulario(): void {

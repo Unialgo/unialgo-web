@@ -6,11 +6,12 @@ import moment from 'moment';
 
 import { LoginRequest } from '.';
 import { environment } from '../../../environments/environment';
+import { SignupRequest } from './requests/signup-request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     get url(): string {
-        return environment.authApiUrl;
+        return environment.apiUrl;
     }
 
     constructor(private http: HttpClient) {}
@@ -23,15 +24,19 @@ export class AuthService {
         );
     }
 
+    public signup(request: SignupRequest) {
+        return this.http.post<any>(`${this.url}/public/users/signup`, { ...request })
+    }
+
     private setSession(authResult: any) {
         const expiresAt = moment().add(authResult.expiresIn, 'second');
 
-        localStorage.setItem('id_token', authResult.idToken);
+        localStorage.setItem('access_token', authResult.access_token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     }
 
     logout() {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('access_token');
         localStorage.removeItem('expires_at');
     }
 

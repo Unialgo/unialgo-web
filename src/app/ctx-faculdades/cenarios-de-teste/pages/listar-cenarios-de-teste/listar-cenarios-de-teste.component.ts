@@ -5,21 +5,16 @@ import { MessageService } from 'primeng/api';
 
 import { CenarioDeTeste } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { BaseAbstract, NotificationType } from '../../../../libraries/abstracts/base.abstract';
+import { EntityListAbstract } from '../../../../libraries/abstracts';
 
 @Component({
     selector: 'ctx-faculdade-listar-cenarios-de-teste',
     templateUrl: 'listar-cenarios-de-teste.component.html',
     standalone: false
 })
-export class ListarCenariosDeTesteComponent extends BaseAbstract implements OnInit {
+export class ListarCenariosDeTesteComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
     @Input() exercicioId: string;
-    searchValue: string = '';
-
-    adicionarVisible: boolean = false;
-    editarVisible: boolean = false;
-    excluirVisible: boolean = false;
 
     cases!: CenarioDeTeste[];
     selectedCase: CenarioDeTeste | null = null;
@@ -33,16 +28,6 @@ export class ListarCenariosDeTesteComponent extends BaseAbstract implements OnIn
         this.cases = mockData;
     }
 
-    onGlobalFilter(table: Table, event: Event): void {
-        table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-    }
-
-    onClickClear(table: Table): void {
-        this.notify(NotificationType.SUCCESS, undefined, 'Filtros removidos com sucesso.');
-        table.clear();
-        this.searchValue = '';
-    }
-
     onClickAtualizar(): void {
         this.block('Carregando...');
         setTimeout(() => {
@@ -53,6 +38,7 @@ export class ListarCenariosDeTesteComponent extends BaseAbstract implements OnIn
     onClickAdicionar(): void {
         this.adicionarVisible = true;
     }
+
     onAdicionarVisibleEvent(event: any): void {
         this.adicionarVisible = false;
     }
