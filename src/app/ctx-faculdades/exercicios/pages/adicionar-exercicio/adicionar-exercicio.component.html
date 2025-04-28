@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()" [style]="{ width: '80vw', height: '100vh' }" header="Adicionar Exercício" [modal]="true">
+<p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()" [style]="{ width: '40vw' }" header="Adicionar Exercício" [modal]="true">
     <ng-template #content>
         <form [formGroup]="form">
             <div class="grid">
@@ -9,9 +9,6 @@
                 <div class="col-12">
                     <label for="enunciado" class="block font-bold mb-3">Enunciado</label>
                     <textarea class="w-full" id="enunciado" pTextarea formControlName="enunciado"></textarea>
-                </div>
-                <div class="col-12">
-                    <ctx-faculdade-listar-cenarios-de-teste />
                 </div>
             </div>
         </form>
