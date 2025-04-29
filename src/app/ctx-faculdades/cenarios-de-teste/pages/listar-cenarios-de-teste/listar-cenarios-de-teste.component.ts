@@ -3,9 +3,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService } from 'primeng/api';
 
-import { CenarioDeTeste } from '../../../../api/faculdade';
+import { CenarioDeTeste, CenariosDeTesteService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 import { EntityListAbstract } from '../../../../libraries/abstracts';
+import { NotificationType } from '../../../../libraries/enums';
 
 @Component({
     selector: 'ctx-faculdade-listar-cenarios-de-teste',
@@ -14,25 +15,27 @@ import { EntityListAbstract } from '../../../../libraries/abstracts';
 })
 export class ListarCenariosDeTesteComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
-    @Input() exercicioId: string;
+    @Input({ required: true }) exercicioId: string;
 
     cases!: CenarioDeTeste[];
     selectedCase: CenarioDeTeste | null = null;
     selectedCases: CenarioDeTeste[] = [];
 
-    constructor(messageService: MessageService, loadingService: LoadingService) {
+    constructor(
+        messageService: MessageService,
+        loadingService: LoadingService,
+        private service: CenariosDeTesteService
+    ) {
         super(messageService, loadingService);
     }
 
     ngOnInit(): void {
-        this.cases = mockData;
+        this.obterDados();
     }
 
     onClickAtualizar(): void {
-        this.block('Carregando...');
-        setTimeout(() => {
-            this.unlock();
-        }, 500);
+        this.block();
+        this.obterDados();
     }
 
     onClickAdicionar(): void {
@@ -90,52 +93,17 @@ export class ListarCenariosDeTesteComponent extends EntityListAbstract implement
         this.selectedCase = null;
         this.excluirVisible = false;
     }
-}
 
-export const mockData: CenarioDeTeste[] = [
-    {
-        id: '1',
-        codigo: 'CT-001',
-        exercicioId: 'EX-101',
-        status: 1,
-        statusDesc: 'Ativo',
-        input: { valor1: 10, valor2: 20 },
-        output: { resultado: 30 }
-    },
-    {
-        id: '2',
-        codigo: 'CT-002',
-        exercicioId: 'EX-102',
-        status: 2,
-        statusDesc: 'Inativo',
-        input: { valor1: 5, valor2: 7 },
-        output: { resultado: 12 }
-    },
-    {
-        id: '3',
-        codigo: 'CT-003',
-        exercicioId: 'EX-103',
-        status: 3,
-        statusDesc: 'Em revisão',
-        input: { texto: 'abc', repetir: 2 },
-        output: { resultado: 'abcabc' }
-    },
-    {
-        id: '4',
-        codigo: 'CT-004',
-        exercicioId: 'EX-104',
-        status: 1,
-        statusDesc: 'Ativo',
-        input: { lista: [1, 2, 3, 4] },
-        output: { soma: 10 }
-    },
-    {
-        id: '5',
-        codigo: 'CT-005',
-        exercicioId: 'EX-105',
-        status: 0,
-        statusDesc: 'Rascunho',
-        input: { nome: 'João', idade: 25 },
-        output: { mensagem: 'Olá João, você tem 25 anos' }
+    private obterDados(): void {
+        this.service.obterPorExercicio(this.exercicioId).subscribe(
+            (res) => {
+                this.cases = res;
+                this.unlock();
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
-];
+}

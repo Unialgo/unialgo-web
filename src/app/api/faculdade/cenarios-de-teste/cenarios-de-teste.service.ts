@@ -21,14 +21,14 @@ export class CenariosDeTesteService {
     }
 
     public excluir(request: any) {
-        return this.http.patch<any>(`${this.url}/excluir/${request.id}`, request);
+        return this.http.delete<any>(`${this.url}/excluir/${request.id}`);
     }
 
     public obter(request: any) {
         return this.http.get<CenarioDeTeste>(`${this.url}/obter/${request.id}`);
     }
 
-    public obterPorExercicio(request: any) {
-        return this.http.get<CenarioDeTeste[]>(`${this.url}/obter-por-exercicio/${request.exercicioId}`);
+    public obterPorExercicio(exercicioId: string) {
+        return this.http.get<CenarioDeTeste[]>(`${this.url}/obter-por-exercicio/${exercicioId}`);
     }
 }

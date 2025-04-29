@@ -3,8 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
-import { CenarioDeTeste } from '../../../../api/faculdade';
+import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
+import { CenarioDeTeste, CenariosDeTesteService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
-        protected override formBuilder: FormBuilder
+        protected override formBuilder: FormBuilder,
+        private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
     }
@@ -32,12 +34,27 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         this.notifyCancelation();
     }
 
-    onClickSalvar(): void {
-        this.block('Salvando');
-        setTimeout(() => {
-            this.unlock();
-            this.notifySuccess(true);
-        }, 1000);
+    async onClickSalvar(): Promise<void> {
+        if (await this.onClientFailed()) {
+            return;
+        }
+
+        this.block('Salvando...');
+
+        const request: any = {
+            //    TODO: Integrar quando for feito
+        };
+
+        this.service.editar(request).subscribe(
+            () => {
+                this.unlock();
+                this.notify(NotificationType.SUCCESS, 'Exercicio Editado com Sucesso');
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
 
     private criarFormulario(): void {
