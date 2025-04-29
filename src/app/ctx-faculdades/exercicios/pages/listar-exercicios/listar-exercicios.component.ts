@@ -33,6 +33,7 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
     }
 
     onClickAtualizar(): void {
+        this.block();
         this.obterDados();
     }
 
@@ -95,7 +96,6 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
     }
 
     private obterDados(): void {
-        this.block('Carregando...');
         this.service.obterTodos().subscribe(
             (res) => {
                 this.exercises = res;

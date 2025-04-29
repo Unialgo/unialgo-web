@@ -3,9 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
-import { Exercicio } from '../../../../api/faculdade';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
+import { Exercicio, ExerciciosService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
+import { NotificationType } from '../../../../libraries/enums';
 
 @Component({
     selector: 'ctx-faculdade-editar-exercicio',
@@ -18,7 +19,8 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
-        protected override formBuilder: FormBuilder
+        protected override formBuilder: FormBuilder,
+        private service: ExerciciosService
     ) {
         super(messageService, loadingService, formBuilder);
     }
@@ -32,12 +34,28 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.notifyCancelation();
     }
 
-    onClickSalvar(): void {
-        this.block('Salvando');
-        setTimeout(() => {
-            this.unlock();
-            this.notifySuccess(true)
-        }, 1000);
+    async onClickSalvar(): Promise<void> {
+        if (await this.onClientFailed()) {
+            return;
+        }
+
+        this.block('Salvando...');
+
+        const request: any = {
+            title: this.form.value.titulo,
+            statement: this.form.value.enunciado
+        };
+
+        this.service.editar(request).subscribe(
+            () => {
+                this.unlock();
+                this.notify(NotificationType.SUCCESS, 'Exercicio Editado com Sucesso')
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
 
     private criarFormulario(): void {

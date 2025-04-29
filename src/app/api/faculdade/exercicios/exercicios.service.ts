@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class ExerciciosService {
     get url(): string {
-        return `${environment.apiUrl}/public/questions`;
+        return `${environment.apiUrl}/questions`;
     }
 
     constructor(private http: HttpClient) {}
@@ -17,11 +17,11 @@ export class ExerciciosService {
     }
 
     public editar(request: any) {
-        return this.http.put<any>(`${this.url}/editar/${request.id}`, request);
+        return this.http.patch<any>(`${this.url}/${request.id}`, request);
     }
 
     public excluir(request: any) {
-        return this.http.delete<any>(`${this.url}/excluir/${request.id}`);
+        return this.http.delete<any>(`${this.url}/${request.id}`);
     }
 
     public obter(request: any) {

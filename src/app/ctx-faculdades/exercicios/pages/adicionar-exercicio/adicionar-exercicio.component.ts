@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
+import { ExerciciosService } from '../../../../api/faculdade';
+import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
@@ -15,7 +17,8 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
-        protected override formBuilder: FormBuilder
+        protected override formBuilder: FormBuilder,
+        private service: ExerciciosService
     ) {
         super(messageService, loadingService, formBuilder);
     }
@@ -28,12 +31,28 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         this.notifyCancelation();
     }
 
-    onClickSalvar(): void {
-        this.block('Salvando');
-        setTimeout(() => {
-            this.unlock();
-            this.notifySuccess(true);
-        }, 1000);
+    async onClickSalvar(): Promise<void> {
+        if (await this.onClientFailed()) {
+            return;
+        }
+
+        this.block('Salvando...');
+
+        const request: any = {
+            title: this.form.value.titulo,
+            statement: this.form.value.enunciado
+        };
+
+        this.service.adicionar(request).subscribe(
+            () => {
+                this.unlock();
+                this.notify(NotificationType.SUCCESS, 'Exercicio Adicionado com Sucesso');
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
 
     private criarFormulario(): void {

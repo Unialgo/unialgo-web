@@ -15,7 +15,7 @@ export abstract class BaseAbstract {
     ) {}
 
     protected async block(message?: any): Promise<void> {
-        this.loadingService.start(message);
+        this.loadingService.start(message ?? 'Carregando...');
     }
 
     protected async unlock(): Promise<void> {
