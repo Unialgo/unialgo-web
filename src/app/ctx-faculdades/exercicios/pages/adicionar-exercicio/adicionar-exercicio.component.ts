@@ -25,6 +25,7 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
 
     ngOnInit(): void {
         this.criarFormulario();
+        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -59,6 +60,17 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         this.form = this.formBuilder.group({
             titulo: [null, Validators.required],
             enunciado: [null, Validators.required]
+        });
+    }
+
+    private atualizarMessagensValidacao(): void {
+        this.setValidationMessages({
+            titulo: {
+                required: 'Informe o Titulo'
+            },
+            enunciado: {
+                required: 'Informe o Enunciado'
+            }
         });
     }
 }

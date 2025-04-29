@@ -28,6 +28,7 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
     ngOnInit(): void {
         this.criarFormulario();
         this.carregarFormulario();
+        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -69,6 +70,17 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.form.patchValue({
             titulo: this.exercicio.titulo,
             enunciado: this.exercicio.enunciado
+        });
+    }
+
+    private atualizarMessagensValidacao(): void {
+        this.setValidationMessages({
+            titulo: {
+                required: 'Informe o Titulo'
+            },
+            enunciado: {
+                required: 'Informe o Enunciado'
+            }
         });
     }
 }

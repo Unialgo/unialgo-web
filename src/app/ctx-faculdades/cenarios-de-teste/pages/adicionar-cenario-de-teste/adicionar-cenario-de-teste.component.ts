@@ -25,6 +25,7 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
 
     ngOnInit(): void {
         this.criarFormulario();
+        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -60,6 +61,20 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
             codigo: [null, Validators.required],
             input: [null, Validators.required],
             output: [null, Validators.required]
+        });
+    }
+
+    private atualizarMessagensValidacao(): void {
+        this.setValidationMessages({
+            codigo: {
+                required: 'Informe o Codigo'
+            },
+            input: {
+                required: 'Informe o Input'
+            },
+            output: {
+                required: 'Informe o Output'
+            }
         });
     }
 }

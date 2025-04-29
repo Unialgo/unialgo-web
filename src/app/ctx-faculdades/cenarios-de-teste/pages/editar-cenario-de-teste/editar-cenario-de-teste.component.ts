@@ -28,6 +28,7 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
     ngOnInit(): void {
         this.criarFormulario();
         this.carregarFormulario();
+        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -70,6 +71,20 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
             codigo: this.cenario.codigo,
             input: JSON.stringify(this.cenario.input),
             output: JSON.stringify(this.cenario.output)
+        });
+    }
+
+    private atualizarMessagensValidacao(): void {
+        this.setValidationMessages({
+            codigo: {
+                required: 'Informe o Codigo'
+            },
+            input: {
+                required: 'Informe o Input'
+            },
+            output: {
+                required: 'Informe o Output'
+            }
         });
     }
 }
