@@ -21,11 +21,12 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
         private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
         this.criarFormulario();
-        this.atualizarMessagensValidacao();
+        
     }
 
     onClickCancelar(): void {
@@ -64,8 +65,8 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
         });
     }
 
-    private atualizarMessagensValidacao(): void {
-        this.setValidationMessages({
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
             codigo: {
                 required: 'Informe o Codigo'
             },

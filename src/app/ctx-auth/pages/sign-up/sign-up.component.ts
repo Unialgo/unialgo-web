@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '../../../api/auth';
 import { ReactiveFormAbstract } from '../../../libraries/abstracts';
@@ -25,6 +25,7 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         private router: Router
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
@@ -42,6 +43,7 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
 
         if (this.form.value.password != this.form.value.confirmationPassword) {
             this.notify(NotificationType.ERROR, 'Senhas não coincidem.');
+            return;
         }
 
         this.block();
@@ -70,6 +72,20 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
             username: [null, Validators.required],
             password: [null, Validators.required],
             confirmationPassword: [null, Validators.required]
+        });
+    }
+
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
+            username: {
+                required: 'Informe o E-mail'
+            },
+            password: {
+                required: 'Informe a Senha'
+            },
+            confirmationPassword: {
+                required: 'Informe a Confirmação de Senha'
+            }
         });
     }
 }

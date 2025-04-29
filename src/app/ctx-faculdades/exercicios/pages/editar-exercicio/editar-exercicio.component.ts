@@ -23,12 +23,12 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         private service: ExerciciosService
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
         this.criarFormulario();
         this.carregarFormulario();
-        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -73,8 +73,8 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         });
     }
 
-    private atualizarMessagensValidacao(): void {
-        this.setValidationMessages({
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
             titulo: {
                 required: 'Informe o Titulo'
             },

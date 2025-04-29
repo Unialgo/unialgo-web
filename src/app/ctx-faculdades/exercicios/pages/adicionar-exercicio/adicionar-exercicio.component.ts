@@ -21,11 +21,11 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         private service: ExerciciosService
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
         this.criarFormulario();
-        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -63,8 +63,8 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         });
     }
 
-    private atualizarMessagensValidacao(): void {
-        this.setValidationMessages({
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
             titulo: {
                 required: 'Informe o Titulo'
             },

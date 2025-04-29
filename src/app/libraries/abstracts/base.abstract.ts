@@ -30,25 +30,18 @@ export abstract class BaseAbstract {
 
     protected async notifyMultiple(color: string, messages: string[]): Promise<void> {
         await this.unlock();
-        this.messageService.addAll(messages.map((message) => ({ severity: color, detail: message }) as ToastMessageOptions));
+        const notificationType = color[0].toLocaleUpperCase() + color.slice(1);
+        this.messageService.addAll(messages.map((message) => ({ severity: color, summary: notificationType, detail: message }) as ToastMessageOptions));
     }
 
-    protected async notifyMessages(): Promise<void> {
-        const messages: string[] = [];
-
-        for (const error in this.errors) {
-            if (this.errors.hasOwnProperty(error) && [undefined, null, ''].includes(this.errors[error])) {
-                messages.push(this.errors[error]);
-            }
-        }
-
-        await this.notifyMultiple(NotificationType.ERROR, messages);
+    protected async notifyErrors(): Promise<void> {
+        await this.notifyMultiple(NotificationType.ERROR, this.errors);
     }
 
     protected async onServerFailed(response: any): Promise<void> {
         this.clearErrors();
         this.errors = response;
-        await this.notifyMessages();
+        await this.notifyErrors();
     }
 
     protected async onServerComplete(): Promise<void> {

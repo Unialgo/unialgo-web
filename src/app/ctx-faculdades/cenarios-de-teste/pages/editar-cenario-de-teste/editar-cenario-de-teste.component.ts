@@ -23,12 +23,12 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
         this.criarFormulario();
         this.carregarFormulario();
-        this.atualizarMessagensValidacao();
     }
 
     onClickCancelar(): void {
@@ -74,8 +74,8 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         });
     }
 
-    private atualizarMessagensValidacao(): void {
-        this.setValidationMessages({
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
             codigo: {
                 required: 'Informe o Codigo'
             },
