@@ -43,6 +43,7 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.block('Salvando...');
 
         const request: any = {
+            id: this.exercicio.id,
             title: this.form.value.titulo,
             statement: this.form.value.enunciado
         };
@@ -50,7 +51,8 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
         this.service.editar(request).subscribe(
             () => {
                 this.unlock();
-                this.notify(NotificationType.SUCCESS, 'Exercicio Editado com Sucesso')
+                this.notifySuccess(true);
+                this.notify(NotificationType.SUCCESS, 'Exercicio Editado')
             },
             (error) => {
                 this.unlock();
@@ -68,8 +70,8 @@ export class EditarExercicioComponent extends ModalBaseAbstract implements OnIni
 
     private carregarFormulario(): void {
         this.form.patchValue({
-            titulo: this.exercicio.titulo,
-            enunciado: this.exercicio.enunciado
+            titulo: this.exercicio.title,
+            enunciado: this.exercicio.statement
         });
     }
 

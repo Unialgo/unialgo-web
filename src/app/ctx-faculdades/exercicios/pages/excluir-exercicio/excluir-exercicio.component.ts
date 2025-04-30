@@ -34,9 +34,11 @@ export class ExcluirExercicioComponent extends ModalBaseAbstract implements OnIn
 
     onClickExcluir(): void {
         this.block('Excluindo...');
-        this.service.excluir(this.exercicio.id).subscribe(
+        this.service.excluir({id: this.exercicio.id}).subscribe(
             () => {
                 this.unlock();
+                this.notifySuccess(true);
+                this.notify(NotificationType.SUCCESS, 'Exercicio Excluído')
             },
             (error) => {
                 this.unlock();

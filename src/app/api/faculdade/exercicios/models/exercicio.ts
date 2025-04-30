@@ -3,6 +3,6 @@ export interface Exercicio {
     userId: string;
     status: number;
     statusDesc?: string;
-    titulo: string;
-    enunciado: string;
+    title: string;
+    statement: string;
 }

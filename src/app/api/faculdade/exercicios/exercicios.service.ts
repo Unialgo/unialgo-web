@@ -17,7 +17,7 @@ export class ExerciciosService {
     }
 
     public editar(request: any) {
-        return this.http.patch<any>(`${this.url}/${request.id}`, request);
+        return this.http.put<any>(`${this.url}/${request.id}`, request);
     }
 
     public excluir(request: any) {

@@ -47,7 +47,8 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         this.service.adicionar(request).subscribe(
             () => {
                 this.unlock();
-                this.notify(NotificationType.SUCCESS, 'Exercicio Adicionado com Sucesso');
+                this.notifySuccess(true);
+                this.notify(NotificationType.SUCCESS, 'Exercicio Adicionado');
             },
             (error) => {
                 this.unlock();
