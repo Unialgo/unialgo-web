@@ -1,6 +1,5 @@
 <p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()"
-    [style]="{ width: '95vw', maxWidth: '1200px' }"
-    [contentStyle]="{ 'max-height': '90vh', 'overflow': 'auto' }"
+    [style]="{ width: 'auto'}"
     header="Editar Exercicio" [modal]="true" [breakpoints]="{'768px': '98vw'}">
     <ng-template #content>
         <form [formGroup]="form" class="p-fluid">
@@ -15,11 +14,11 @@
                 </div>
                 <div class="col-6">
                     <label for="startDate" class="block font-bold mb-3">Start Date</label>
-                    <p-datepicker id="startDate" formControlName="startDate" class="w-full" />
+                    <p-datepicker [showTime]="true" [hourFormat]="'24'" [showIcon]="true" dateFormat="dd/mm/yy" id="startDate" formControlName="startDate" class="w-full" appendTo="body" />
                 </div>
                 <div class="col-6">
                     <label for="endDate" class="block font-bold mb-3">End Date</label>
-                    <p-datepicker id="endDate" formControlName="endDate" class="w-full" />
+                    <p-datepicker [showTime]="true" [hourFormat]="'24'" [showIcon]="true" dateFormat="dd/mm/yy" id="endDate" formControlName="endDate" class="w-full" appendTo="body" />
                 </div>
             </div>
         </form>
