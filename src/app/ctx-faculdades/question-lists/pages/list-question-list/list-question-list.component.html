@@ -8,7 +8,7 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="questionList" [(selection)]="selectedQuestionList" [rows]="10" [paginator]="true" [globalFilterFields]="['title', 'description']" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
+<p-table #dt [value]="questionList" [(selection)]="selectedQuestionList" [rows]="10" [paginator]="true" [globalFilterFields]="['title', 'description']" [sortMode]="'multiple'" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
     <ng-template #caption>
         <div class="flex items-center justify-between">
             <h5 class="m-0">Question Lists</h5>
@@ -49,13 +49,7 @@
     </ng-template>
 </p-table>
 
-<ctx-university-create-question-list
-    *ngIf="adicionarVisible"
-    [visible]="adicionarVisible"
-    (visibleEvent)="onAdicionarVisibleEvent($event)"
-    (successEvent)="onAdicionarSuccessEvent($event)"
-    (cancelationEvent)="onAdicionarCancelationEvent($event)"
-/>
+<ctx-university-create-question-list *ngIf="adicionarVisible" [visible]="adicionarVisible" (visibleEvent)="onAdicionarVisibleEvent($event)" (successEvent)="onAdicionarSuccessEvent($event)" (cancelationEvent)="onAdicionarCancelationEvent($event)" />
 
 <ctx-university-update-question-list
     *ngIf="editarVisible && selectedQuestionList"

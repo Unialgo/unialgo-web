@@ -8,7 +8,7 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="cases" [(selection)]="selectedCases" [rows]="10" [paginator]="true" [globalFilterFields]="['codigo', 'status']" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
+<p-table #dt [value]="cases" [(selection)]="selectedCases" [rows]="10" [paginator]="true" [globalFilterFields]="['codigo', 'status']" [sortMode]="'multiple'" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
     <ng-template #caption>
         <div class="flex items-center justify-end">
             <p-iconfield>

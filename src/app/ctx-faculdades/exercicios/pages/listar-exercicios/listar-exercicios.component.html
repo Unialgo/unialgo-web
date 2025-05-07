@@ -8,7 +8,7 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="exercises" [(selection)]="selectedExercises" [rows]="10" [paginator]="true" [globalFilterFields]="['titulo', 'status']" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
+<p-table #dt [value]="exercises" [(selection)]="selectedExercises" [rows]="10" [paginator]="true" [globalFilterFields]="['titulo', 'status']" [sortMode]="'multiple'" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
     <ng-template #caption>
         <div class="flex items-center justify-between">
             <h5 class="m-0">Exercícios</h5>
@@ -53,13 +53,7 @@
     </ng-template>
 </p-table>
 
-<ctx-faculdade-adicionar-exercicio
-    *ngIf="adicionarVisible"
-    [visible]="adicionarVisible"
-    (visibleEvent)="onAdicionarVisibleEvent($event)"
-    (successEvent)="onAdicionarSuccessEvent($event)"
-    (cancelationEvent)="onAdicionarCancelationEvent($event)"
-/>
+<ctx-faculdade-adicionar-exercicio *ngIf="adicionarVisible" [visible]="adicionarVisible" (visibleEvent)="onAdicionarVisibleEvent($event)" (successEvent)="onAdicionarSuccessEvent($event)" (cancelationEvent)="onAdicionarCancelationEvent($event)" />
 
 <ctx-faculdade-editar-exercicio
     *ngIf="editarVisible && selectedExercise"
