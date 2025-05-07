@@ -3,8 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { MessageService } from 'primeng/api';
 
-import { CenarioDeTeste } from '../../../../api/faculdade';
+import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
+import { CenarioDeTeste, CenariosDeTesteService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
@@ -14,12 +15,13 @@ import { LoadingService } from '../../../../ctx-layout/layout/service/loading.se
 })
 export class ExcluirCenarioDeTesteComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) cenario!: CenarioDeTeste;
-    titulo: string = "Deseja excluir esse cenário de teste?";
+    titulo: string = 'Deseja excluir esse cenário de teste?';
 
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
-        protected override formBuilder: FormBuilder
+        protected override formBuilder: FormBuilder,
+        private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
     }
@@ -32,9 +34,14 @@ export class ExcluirCenarioDeTesteComponent extends ModalBaseAbstract implements
 
     onClickExcluir(): void {
         this.block('Excluindo...');
-        setTimeout(() => {
-            this.unlock();
-            this.notifySuccess(true);
-        }, 1000);
+        this.service.excluir(this.cenario.id).subscribe(
+            () => {
+                this.unlock();
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
 }

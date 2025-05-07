@@ -24,6 +24,7 @@ export class LoginComponent extends ReactiveFormAbstract implements OnInit {
         private router: Router
     ) {
         super(messageService, loadingService, formBuilder);
+        this.atualizarMensagensValidacao();
     }
 
     ngOnInit(): void {
@@ -53,6 +54,17 @@ export class LoginComponent extends ReactiveFormAbstract implements OnInit {
         this.form = this.formBuilder.group({
             email: [null, Validators.required],
             password: [null, Validators.required]
+        });
+    }
+
+    private atualizarMensagensValidacao(): void {
+        super.setValidationMessages({
+            email: {
+                required: 'Informe o E-mail'
+            },
+            password: {
+                required: 'Informe a Senha'
+            }
         });
     }
 }

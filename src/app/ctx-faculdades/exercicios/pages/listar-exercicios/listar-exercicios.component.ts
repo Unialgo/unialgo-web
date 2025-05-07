@@ -3,8 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService } from 'primeng/api';
 
-import { Exercicio } from '../../../../api/faculdade';
+import { NotificationType } from '../../../../libraries/enums';
 import { EntityListAbstract } from '../../../../libraries/abstracts';
+import { Exercicio, ExerciciosService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
@@ -19,19 +20,21 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
     selectedExercise: Exercicio | null = null;
     selectedExercises: Exercicio[] = [];
 
-    constructor(messageService: MessageService, loadingService: LoadingService) {
+    constructor(
+        messageService: MessageService,
+        loadingService: LoadingService,
+        private service: ExerciciosService
+    ) {
         super(messageService, loadingService);
     }
 
     ngOnInit() {
-        this.exercises = mockData;
+        this.obterDados();
     }
 
     onClickAtualizar(): void {
-        this.block('Carregando...');
-        setTimeout(() => {
-            this.unlock();
-        }, 500);
+        this.block();
+        this.obterDados();
     }
 
     onClickAdicionar(): void {
@@ -91,42 +94,17 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
         this.excluirVisible = false;
         this.selectedExercise = null;
     }
-}
 
-const mockData: Exercicio[] = [
-    {
-        id: 'a1b2c3d4-e5f6-7890-ab12-cd34ef56gh78',
-        userId: '123e4567-e89b-12d3-a456-426614174000',
-        status: 1,
-        titulo: 'Título de Exemplo 1',
-        enunciado: 'Este é o enunciado da primeira questão de teste.'
-    },
-    {
-        id: '98eecff1-4b78-4b32-a1f0-cc3432ddae5d',
-        userId: '223e4567-e89b-12d3-a456-426614174001',
-        status: 2,
-        titulo: 'Título de Exemplo 2',
-        enunciado: 'Este é o enunciado da segunda questão de teste.'
-    },
-    {
-        id: '11fd2c56-3347-4b6d-a654-c8123fd872f2',
-        userId: '323e4567-e89b-12d3-a456-426614174002',
-        status: 0,
-        titulo: 'Título de Exemplo 3',
-        enunciado: 'Este é o enunciado da terceira questão de teste.'
-    },
-    {
-        id: 'c43acdef-6c52-4c20-a77f-bf999f781263',
-        userId: '423e4567-e89b-12d3-a456-426614174003',
-        status: 3,
-        titulo: 'Título de Exemplo 4',
-        enunciado: 'Este é o enunciado da quarta questão de teste.'
-    },
-    {
-        id: 'fab45d90-129f-451b-93a7-bcfe20d88010',
-        userId: '523e4567-e89b-12d3-a456-426614174004',
-        status: 1,
-        titulo: 'Título de Exemplo 5',
-        enunciado: 'Este é o enunciado da quinta questão de teste.'
+    private obterDados(): void {
+        this.service.obterTodos().subscribe(
+            (res) => {
+                this.exercises = res;
+                this.unlock();
+            },
+            (error) => {
+                this.unlock();
+                this.notify(NotificationType.ERROR, error.message);
+            }
+        );
     }
-];
+}

@@ -42,7 +42,7 @@ export abstract class ReactiveFormAbstract extends BaseAbstract {
             }
         }
 
-        await this.notifyMessages();
+        await this.notifyErrors();
         return true;
     }
 

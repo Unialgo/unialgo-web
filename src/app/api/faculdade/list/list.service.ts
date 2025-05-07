@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Exercicio } from './models';
 import { environment } from '../../../../environments/environment';
+import { CreateListRequest, List, UpdateListRequest } from '.';
 
 @Injectable({ providedIn: 'root' })
-export class ExerciciosService {
+export class ListsService {
     get url(): string {
-        return `${environment.apiUrl}/questions`;
+        return `${environment.apiUrl}/lists`;
     }
 
     constructor(private http: HttpClient) {}
 
-    public adicionar(request: any) {
+    public create(request: CreateListRequest) {
         return this.http.post<any>(`${this.url}`, request);
     }
 
-    public editar(request: any) {
+    public update(request: UpdateListRequest) {
         return this.http.put<any>(`${this.url}/${request.id}`, request);
     }
 
-    public excluir(request: any) {
+    public delete(request: any) {
         return this.http.delete<any>(`${this.url}/${request.id}`);
     }
 
-    public obter(request: any) {
-        return this.http.get<Exercicio>(`${this.url}/${request.id}`);
+    public get(request: any) {
+        return this.http.get<List>(`${this.url}/${request.id}`);
     }
 
-    public obterTodos() {
-        return this.http.get<Exercicio[]>(`${this.url}`);
+    public getAll() {
+        return this.http.get<List[]>(`${this.url}`);
     }
 }

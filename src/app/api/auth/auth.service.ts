@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,7 +15,10 @@ export class AuthService {
         return environment.apiUrl;
     }
 
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) {}
 
     public login(request: LoginRequest) {
         return this.http.post<any>(`${this.url}/public/users/login`, { ...request }).pipe(
@@ -38,10 +42,17 @@ export class AuthService {
     logout() {
         localStorage.removeItem('access_token');
         localStorage.removeItem('expires_at');
+        this.router.navigateByUrl('/login');
     }
 
     public isLoggedIn() {
-        return moment().isBefore(this.getExpiration());
+        const expirationDate = this.getExpiration();
+        if (expirationDate == null) return false;
+        else return true
+
+        // TODO: Esta voltando data do login no expires_at
+
+        // return moment().diff(expirationDate.toDate(), 'hour') > 0;
     }
 
     isLoggedOut() {
@@ -49,7 +60,9 @@ export class AuthService {
     }
 
     getExpiration() {
-        const expiration = localStorage.getItem('expires_at') ?? '';
+        const expiration = localStorage.getItem('expires_at');
+        if (!expiration) return null;
+
         const expiresAt = JSON.parse(expiration);
         return moment(expiresAt);
     }
