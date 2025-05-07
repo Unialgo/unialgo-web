@@ -64,6 +64,10 @@ export class AppMenu {
             items.push({ label: 'Exercicios', icon: 'pi pi-fw pi-file-edit', routerLink: ['faculdades/exercicios'] });
         }
 
+        if (this.auth.isLoggedIn()) {
+            items.push({ label: 'Lists', icon: 'pi pi-fw pi-list', routerLink: ['faculdades/lists'] });
+        }
+
         return items;
     }
 
