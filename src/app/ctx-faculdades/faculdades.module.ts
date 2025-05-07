@@ -4,16 +4,20 @@ import {FormsModule} from "@angular/forms";
 import {PrimeNGModule} from "../prime-ng/prime-ng.module";
 import {ExerciciosModule} from "./exercicios/exercicios.module";
 import {CenariosdeTesteModule} from "./cenarios-de-teste/cenarios-de-teste.module";
+import {QuestionListsModule} from "./question-lists/question-lists.module";
 
 const exports = [
-    ExerciciosModule
+    ExerciciosModule,
+    CenariosdeTesteModule,
+    QuestionListsModule,
 ];
 
 const imports = [
     PrimeNGModule,
     FormsModule,
     ExerciciosModule,
-    CenariosdeTesteModule
+    CenariosdeTesteModule,
+    QuestionListsModule
 ]
 
 @NgModule({
