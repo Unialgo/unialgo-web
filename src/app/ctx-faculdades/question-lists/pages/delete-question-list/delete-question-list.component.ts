@@ -14,7 +14,7 @@ import { List, ListsService } from '../../../../api/faculdade/list';
     standalone: false
 })
 export class DeleteQuestionListComponent extends ModalBaseAbstract implements OnInit {
-    @Input({ required: true }) questionList!: List;
+    @Input({ required: true }) questionLists!: List;
     title: string = 'Delete Question List';
 
     constructor(
@@ -34,7 +34,7 @@ export class DeleteQuestionListComponent extends ModalBaseAbstract implements On
 
     onClickDelete(): void {
         this.block('Deleting...');
-        this.service.delete({id: this.questionList.id}).subscribe(
+        this.service.delete({id: this.questionLists.id}).subscribe(
             () => {
                 this.unlock();
                 this.notifySuccess(true);

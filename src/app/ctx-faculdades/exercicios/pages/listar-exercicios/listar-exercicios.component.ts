@@ -37,11 +37,11 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
         this.obterDados();
     }
 
-    onClickAdicionar(): void {
+    onClickCreate(): void {
         this.createVisible = true;
     }
 
-    oncreateVisibleEvent(event: any): void {
+    onCreateVisibleEvent(event: any): void {
         this.createVisible = false;
     }
 
@@ -54,12 +54,12 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
         this.createVisible = false;
     }
 
-    onClickEditar(exercicio: Exercicio) {
+    onClickUpdate(exercicio: Exercicio) {
         this.selectedExercise = exercicio;
         this.updateVisible = true;
     }
 
-    onupdateVisibleEvent(event: any): void {
+    onUpdateVisibleEvent(event: any): void {
         this.updateVisible = false;
         this.selectedExercise = null;
     }
@@ -74,12 +74,12 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
         this.selectedExercise = null;
     }
 
-    onClickExcluir(exercicio: Exercicio) {
+    onClickDelete(exercicio: Exercicio) {
         this.selectedExercise = exercicio;
         this.deleteVisible = true;
     }
 
-    ondeleteVisibleEvent(event: any): void {
+    onDeleteVisibleEvent(event: any): void {
         this.deleteVisible = false;
         this.selectedExercise = null;
     }

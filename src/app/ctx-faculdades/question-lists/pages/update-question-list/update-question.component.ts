@@ -14,7 +14,7 @@ import { List, ListsService, UpdateListRequest } from '../../../../api/faculdade
     standalone: false
 })
 export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit {
-    @Input({ required: true }) questionList!: List;
+    @Input({ required: true }) questionLists!: List;
 
     constructor(
         protected override messageService: MessageService,
@@ -43,7 +43,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         this.block('Saving...');
 
         const request: UpdateListRequest = {
-            id: this.questionList.id,
+            id: this.questionLists.id,
             title: this.form.value.title,
             description: this.form.value.description,
             startDate: this.form.value.startDate,
@@ -73,12 +73,16 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
     }
 
     private loadFormData(): void {
+        console.log(this.questionLists)
         this.form.patchValue({
-            title: this.questionList.title,
-            description: this.questionList.description,
-            startDate: this.questionList.startDate,
-            endDate: this.questionList.endDate
+            title: this.questionLists.title,
+            description: this.questionLists.description,
+            startDate: new Date(this.questionLists.startDate),
+            endDate: this.questionLists.endDate
         });
+
+        console.log(this.form.value.startDate)
+        console.log(this.form.value.endDate)
     }
 
     private updateValidationMessages(): void {

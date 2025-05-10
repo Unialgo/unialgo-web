@@ -32,7 +32,7 @@ export class ExcluirExercicioComponent extends ModalBaseAbstract implements OnIn
         this.notifyCancelation();
     }
 
-    onClickExcluir(): void {
+    onClickDelete(): void {
         this.block('Excluindo...');
         this.service.excluir({id: this.exercicio.id}).subscribe(
             () => {

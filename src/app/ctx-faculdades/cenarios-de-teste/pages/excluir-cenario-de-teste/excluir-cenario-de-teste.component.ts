@@ -32,7 +32,7 @@ export class ExcluirCenarioDeTesteComponent extends ModalBaseAbstract implements
         this.notifyCancelation();
     }
 
-    onClickExcluir(): void {
+    onClickDelete(): void {
         this.block('Excluindo...');
         this.service.excluir(this.cenario.id).subscribe(
             () => {

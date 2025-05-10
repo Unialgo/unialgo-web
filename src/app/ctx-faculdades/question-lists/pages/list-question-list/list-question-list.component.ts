@@ -16,7 +16,7 @@ import { List, ListsService } from '../../../../api/faculdade/list';
 export class ListQuestionListComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
 
-    questionList!: List[];
+    questionLists!: List[];
     selectedQuestionList: List | null = null;
     selectedQuestionLists: List[] = [];
 
@@ -32,34 +32,34 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
         this.getData();
     }
 
-    onClickUpdate(): void {
+    onClickReload(): void {
         this.block();
         this.getData();
     }
 
-    onClickAdicionar(): void {
+    onClickCreate(): void {
         this.createVisible = true;
     }
 
-    oncreateVisibleEvent(event: any): void {
+    onCreateVisibleEvent(event: any): void {
         this.createVisible = false;
     }
 
     onAdicionarSuccessEvent(event: any): void {
         this.createVisible = false;
-        this.onClickUpdate();
+        this.onClickReload();
     }
 
     onAdicionarCancelationEvent(event: any): void {
         this.createVisible = false;
     }
 
-    onClickEditar(questionList: List) {
-        this.selectedQuestionList = questionList;
+    onClickUpdate(questionLists: List) {
+        this.selectedQuestionList = questionLists;
         this.updateVisible = true;
     }
 
-    onupdateVisibleEvent(event: any): void {
+    onUpdateVisibleEvent(event: any): void {
         this.updateVisible = false;
         this.selectedQuestionList = null;
     }
@@ -74,12 +74,12 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
         this.selectedQuestionList = null;
     }
 
-    onClickExcluir(questionList: List) {
-        this.selectedQuestionList = questionList;
+    onClickDelete(questionLists: List) {
+        this.selectedQuestionList = questionLists;
         this.deleteVisible = true;
     }
 
-    ondeleteVisibleEvent(event: any): void {
+    onDeleteVisibleEvent(event: any): void {
         this.deleteVisible = false;
         this.selectedQuestionList = null;
     }
@@ -87,7 +87,7 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
     onExcluirSuccessEvent(event: any): void {
         this.deleteVisible = false;
         this.selectedQuestionList = null;
-        this.onClickUpdate();
+        this.onClickReload();
     }
 
     onExcluirCancelationEvent(event: any): void {
@@ -98,7 +98,7 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
     private getData(): void {
         this.service.getAll().subscribe(
             (res) => {
-                this.questionList = res;
+                this.questionLists = res;
                 this.unlock();
             },
             (error) => {

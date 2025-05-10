@@ -38,11 +38,11 @@ export class ListarCenariosDeTesteComponent extends EntityListAbstract implement
         this.obterDados();
     }
 
-    onClickAdicionar(): void {
+    onClickCreate(): void {
         this.createVisible = true;
     }
 
-    oncreateVisibleEvent(event: any): void {
+    onCreateVisibleEvent(event: any): void {
         this.createVisible = false;
     }
 
@@ -54,12 +54,12 @@ export class ListarCenariosDeTesteComponent extends EntityListAbstract implement
         this.createVisible = false;
     }
 
-    onClickEditar(CenarioDeTeste: CenarioDeTeste) {
+    onClickUpdate(CenarioDeTeste: CenarioDeTeste) {
         this.selectedCase = CenarioDeTeste;
         this.updateVisible = true;
     }
 
-    onupdateVisibleEvent(event: any): void {
+    onUpdateVisibleEvent(event: any): void {
         this.updateVisible = false;
         this.selectedCase = null;
     }
@@ -74,12 +74,12 @@ export class ListarCenariosDeTesteComponent extends EntityListAbstract implement
         this.selectedCase = null;
     }
 
-    onClickExcluir(CenarioDeTeste: CenarioDeTeste) {
+    onClickDelete(CenarioDeTeste: CenarioDeTeste) {
         this.selectedCase = CenarioDeTeste;
         this.deleteVisible = true;
     }
 
-    ondeleteVisibleEvent(event: any): void {
+    onDeleteVisibleEvent(event: any): void {
         this.selectedCase = null;
         this.deleteVisible = false;
     }
