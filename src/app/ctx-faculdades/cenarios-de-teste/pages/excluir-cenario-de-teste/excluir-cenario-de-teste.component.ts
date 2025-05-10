@@ -15,7 +15,7 @@ import { LoadingService } from '../../../../ctx-layout/layout/service/loading.se
 })
 export class ExcluirCenarioDeTesteComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) cenario!: CenarioDeTeste;
-    titulo: string = 'Deseja excluir esse cenário de teste?';
+    title: string = 'Deseja excluir esse cenário de teste?';
 
     constructor(
         protected override messageService: MessageService,
@@ -28,7 +28,7 @@ export class ExcluirCenarioDeTesteComponent extends ModalBaseAbstract implements
 
     ngOnInit(): void {}
 
-    onClickCancelar(): void {
+    onClickCancel(): void {
         this.notifyCancelation();
     }
 

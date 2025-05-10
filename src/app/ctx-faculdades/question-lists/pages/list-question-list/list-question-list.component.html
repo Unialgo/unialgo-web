@@ -3,7 +3,7 @@
         <p-button severity="success" [outlined]="true" label="Create List" icon="pi pi-plus" (onClick)="onClickAdicionar()" pRipple />
     </ng-template>
     <ng-template #end>
-        <p-button [outlined]="true" icon="pi pi-filter-slash" (click)="onClickClear(dt)" />
+        <p-button [outlined]="true" icon="pi pi-filter-slash" (click)="onClickClearFilters(dt)" />
         <p-button class="pl-2" [outlined]="true" icon="pi pi-refresh" (click)="onClickUpdate()" />
     </ng-template>
 </p-toolbar>
@@ -14,7 +14,7 @@
             <h5 class="m-0">Question Lists</h5>
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
-                <input [(ngModel)]="searchValue" pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..." />
+                <input [(ngModel)]="searchValue" pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." />
             </p-iconfield>
         </div>
     </ng-template>
@@ -49,22 +49,22 @@
     </ng-template>
 </p-table>
 
-<ctx-university-create-question-list *ngIf="adicionarVisible" [visible]="adicionarVisible" (visibleEvent)="onAdicionarVisibleEvent($event)" (successEvent)="onAdicionarSuccessEvent($event)" (cancelationEvent)="onAdicionarCancelationEvent($event)" />
+<ctx-university-create-question-list *ngIf="createVisible" [visible]="createVisible" (visibleEvent)="oncreateVisibleEvent($event)" (successEvent)="onAdicionarSuccessEvent($event)" (cancelationEvent)="onAdicionarCancelationEvent($event)" />
 
 <ctx-university-update-question-list
-    *ngIf="editarVisible && selectedQuestionList"
-    [visible]="editarVisible"
+    *ngIf="updateVisible && selectedQuestionList"
+    [visible]="updateVisible"
     [questionList]="selectedQuestionList"
-    (visibleEvent)="onEditarVisibleEvent($event)"
+    (visibleEvent)="onupdateVisibleEvent($event)"
     (successEvent)="onEditarSuccessEvent($event)"
     (cancelationEvent)="onEditarCancelationEvent($event)"
 />
 
 <ctx-university-update-question-list
-    *ngIf="excluirVisible && selectedQuestionList"
-    [visible]="excluirVisible"
+    *ngIf="deleteVisible && selectedQuestionList"
+    [visible]="deleteVisible"
     [questionList]="selectedQuestionList"
-    (visibleEvent)="onExcluirVisibleEvent($event)"
+    (visibleEvent)="ondeleteVisibleEvent($event)"
     (successEvent)="onExcluirSuccessEvent($event)"
     (cancelationEvent)="onExcluirCancelationEvent($event)"
 />

@@ -8,6 +8,7 @@ import { AuthService, LoginRequest } from '../../../api/auth';
 import { ReactiveFormAbstract } from '../../../libraries/abstracts';
 import { LayoutService } from '../../../ctx-layout/layout/service/layout.service';
 import { LoadingService } from '../../../ctx-layout/layout/service/loading.service';
+import { NotificationType } from '../../../libraries/enums';
 
 @Component({
     selector: 'app-auth-login',
@@ -24,11 +25,11 @@ export class LoginComponent extends ReactiveFormAbstract implements OnInit {
         private router: Router
     ) {
         super(messageService, loadingService, formBuilder);
-        this.atualizarMensagensValidacao();
+        this.updateValidationMessages();
     }
 
     ngOnInit(): void {
-        this.criarFormulario();
+        this.createForms();
     }
 
     verificarTemaEscuro(): boolean {
@@ -40,24 +41,29 @@ export class LoginComponent extends ReactiveFormAbstract implements OnInit {
             return;
         }
 
+        await this.block();
+
         const request: LoginRequest = {
             username: this.form.value.email,
             password: this.form.value.password
         };
 
-        this.authService.login(request).subscribe(() => {
+        this.authService.login(request).subscribe(async() => {
             this.router.navigateByUrl('/');
+            await this.unlock();
+        }, error => {
+            this.notify(NotificationType.ERROR, error.message)
         });
     }
 
-    private criarFormulario(): void {
+    private createForms(): void {
         this.form = this.formBuilder.group({
             email: [null, Validators.required],
             password: [null, Validators.required]
         });
     }
 
-    private atualizarMensagensValidacao(): void {
+    private updateValidationMessages(): void {
         super.setValidationMessages({
             email: {
                 required: 'Informe o E-mail'

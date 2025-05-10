@@ -38,60 +38,60 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
     }
 
     onClickAdicionar(): void {
-        this.adicionarVisible = true;
+        this.createVisible = true;
     }
 
-    onAdicionarVisibleEvent(event: any): void {
-        this.adicionarVisible = false;
+    oncreateVisibleEvent(event: any): void {
+        this.createVisible = false;
     }
 
     onAdicionarSuccessEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
         this.onClickUpdate();
     }
 
     onAdicionarCancelationEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
     }
 
     onClickEditar(questionList: List) {
         this.selectedQuestionList = questionList;
-        this.editarVisible = true;
+        this.updateVisible = true;
     }
 
-    onEditarVisibleEvent(event: any): void {
-        this.editarVisible = false;
+    onupdateVisibleEvent(event: any): void {
+        this.updateVisible = false;
         this.selectedQuestionList = null;
     }
 
     onEditarSuccessEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedQuestionList = null;
     }
 
     onEditarCancelationEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedQuestionList = null;
     }
 
     onClickExcluir(questionList: List) {
         this.selectedQuestionList = questionList;
-        this.excluirVisible = true;
+        this.deleteVisible = true;
     }
 
-    onExcluirVisibleEvent(event: any): void {
-        this.excluirVisible = false;
+    ondeleteVisibleEvent(event: any): void {
+        this.deleteVisible = false;
         this.selectedQuestionList = null;
     }
 
     onExcluirSuccessEvent(event: any): void {
-        this.excluirVisible = false;
+        this.deleteVisible = false;
         this.selectedQuestionList = null;
         this.onClickUpdate();
     }
 
     onExcluirCancelationEvent(event: any): void {
-        this.excluirVisible = false;
+        this.deleteVisible = false;
         this.selectedQuestionList = null;
     }
 

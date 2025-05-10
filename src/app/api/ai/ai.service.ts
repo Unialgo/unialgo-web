@@ -11,7 +11,7 @@ export class AIService {
 
     constructor(private http: HttpClient) { }
 
-    gerarEnunciado(dados: { title: string, context?: string }): Observable<{ statement: string }> {
+    generateStatement(dados: { title: string, context?: string }): Observable<{ statement: string }> {
         return this.http.post<{ statement: string }>(`${this.url}/gerar-enunciado`, {
             title: dados.title,
             context: dados.context || ""

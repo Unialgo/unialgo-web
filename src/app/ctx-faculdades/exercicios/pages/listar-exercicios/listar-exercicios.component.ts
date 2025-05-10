@@ -38,60 +38,60 @@ export class ListarExerciciosComponent extends EntityListAbstract implements OnI
     }
 
     onClickAdicionar(): void {
-        this.adicionarVisible = true;
+        this.createVisible = true;
     }
 
-    onAdicionarVisibleEvent(event: any): void {
-        this.adicionarVisible = false;
+    oncreateVisibleEvent(event: any): void {
+        this.createVisible = false;
     }
 
     onAdicionarSuccessEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
         this.onClickAtualizar();
     }
 
     onAdicionarCancelationEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
     }
 
     onClickEditar(exercicio: Exercicio) {
         this.selectedExercise = exercicio;
-        this.editarVisible = true;
+        this.updateVisible = true;
     }
 
-    onEditarVisibleEvent(event: any): void {
-        this.editarVisible = false;
+    onupdateVisibleEvent(event: any): void {
+        this.updateVisible = false;
         this.selectedExercise = null;
     }
 
     onEditarSuccessEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedExercise = null;
     }
 
     onEditarCancelationEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedExercise = null;
     }
 
     onClickExcluir(exercicio: Exercicio) {
         this.selectedExercise = exercicio;
-        this.excluirVisible = true;
+        this.deleteVisible = true;
     }
 
-    onExcluirVisibleEvent(event: any): void {
-        this.excluirVisible = false;
+    ondeleteVisibleEvent(event: any): void {
+        this.deleteVisible = false;
         this.selectedExercise = null;
     }
 
     onExcluirSuccessEvent(event: any): void {
-        this.excluirVisible = false;
+        this.deleteVisible = false;
         this.selectedExercise = null;
         this.onClickAtualizar();
     }
 
     onExcluirCancelationEvent(event: any): void {
-        this.excluirVisible = false;
+        this.deleteVisible = false;
         this.selectedExercise = null;
     }
 

@@ -15,7 +15,7 @@ import { LoadingService } from '../../../../ctx-layout/layout/service/loading.se
 })
 export class ExcluirExercicioComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) exercicio!: Exercicio;
-    titulo: string = 'Deseja excluir esse exercício?';
+    title: string = 'Deseja excluir esse exercício?';
 
     constructor(
         protected override messageService: MessageService,
@@ -28,7 +28,7 @@ export class ExcluirExercicioComponent extends ModalBaseAbstract implements OnIn
 
     ngOnInit(): void {}
 
-    onClickCancelar(): void {
+    onClickCancel(): void {
         this.notifyCancelation();
     }
 

@@ -15,7 +15,7 @@ import { List, ListsService } from '../../../../api/faculdade/list';
 })
 export class DeleteQuestionListComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) questionList!: List;
-    titulo: string = 'Delete Question List';
+    title: string = 'Delete Question List';
 
     constructor(
         protected override messageService: MessageService,

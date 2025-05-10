@@ -39,59 +39,59 @@ export class ListarCenariosDeTesteComponent extends EntityListAbstract implement
     }
 
     onClickAdicionar(): void {
-        this.adicionarVisible = true;
+        this.createVisible = true;
     }
 
-    onAdicionarVisibleEvent(event: any): void {
-        this.adicionarVisible = false;
+    oncreateVisibleEvent(event: any): void {
+        this.createVisible = false;
     }
 
     onAdicionarSuccessEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
     }
 
     onAdicionarCancelationEvent(event: any): void {
-        this.adicionarVisible = false;
+        this.createVisible = false;
     }
 
     onClickEditar(CenarioDeTeste: CenarioDeTeste) {
         this.selectedCase = CenarioDeTeste;
-        this.editarVisible = true;
+        this.updateVisible = true;
     }
 
-    onEditarVisibleEvent(event: any): void {
-        this.editarVisible = false;
+    onupdateVisibleEvent(event: any): void {
+        this.updateVisible = false;
         this.selectedCase = null;
     }
 
     onEditarSuccessEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedCase = null;
     }
 
     onEditarCancelationEvent(event: any): void {
-        this.editarVisible = false;
+        this.updateVisible = false;
         this.selectedCase = null;
     }
 
     onClickExcluir(CenarioDeTeste: CenarioDeTeste) {
         this.selectedCase = CenarioDeTeste;
-        this.excluirVisible = true;
+        this.deleteVisible = true;
     }
 
-    onExcluirVisibleEvent(event: any): void {
+    ondeleteVisibleEvent(event: any): void {
         this.selectedCase = null;
-        this.excluirVisible = false;
+        this.deleteVisible = false;
     }
 
     onExcluirSuccessEvent(event: any): void {
         this.selectedCase = null;
-        this.excluirVisible = false;
+        this.deleteVisible = false;
     }
 
     onExcluirCancelationEvent(event: any): void {
         this.selectedCase = null;
-        this.excluirVisible = false;
+        this.deleteVisible = false;
     }
 
     private obterDados(): void {

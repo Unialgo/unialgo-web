@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 
 import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
-import { CenarioDeTeste, CenariosDeTesteService } from '../../../../api/faculdade';
+import { CenariosDeTesteService } from '../../../../api/faculdade';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
 
 @Component({
@@ -21,34 +21,34 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
         private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
-        this.atualizarMensagensValidacao();
+        this.updateValidationMessages();
     }
 
     ngOnInit(): void {
-        this.criarFormulario();
+        this.createForms();
         
     }
 
-    onClickCancelar(): void {
+    onClickCancel(): void {
         this.notifyCancelation();
     }
 
-    async onClickSalvar(): Promise<void> {
+    async onClickSave(): Promise<void> {
         if (await this.onClientFailed()) {
             return;
         }
 
-        this.block('Salvando...');
+        this.block('Saving...');
 
         const request: any = {
-            title: this.form.value.titulo,
+            title: this.form.value.title,
             statement: this.form.value.enunciado
         };
 
         this.service.adicionar(request).subscribe(
             () => {
                 this.unlock();
-                this.notify(NotificationType.SUCCESS, 'Exercicio Adicionado com Sucesso');
+                this.notify(NotificationType.SUCCESS, 'Question created com Sucesso');
             },
             (error) => {
                 this.unlock();
@@ -57,7 +57,7 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
         );
     }
 
-    private criarFormulario(): void {
+    private createForms(): void {
         this.form = this.formBuilder.group({
             codigo: [null, Validators.required],
             input: [null, Validators.required],
@@ -65,7 +65,7 @@ export class AdicionarCenarioDeTesteComponent extends ModalBaseAbstract implemen
         });
     }
 
-    private atualizarMensagensValidacao(): void {
+    private updateValidationMessages(): void {
         super.setValidationMessages({
             codigo: {
                 required: 'Informe o Codigo'

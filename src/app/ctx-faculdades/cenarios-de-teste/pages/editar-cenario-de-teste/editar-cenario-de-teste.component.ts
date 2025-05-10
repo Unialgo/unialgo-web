@@ -23,24 +23,24 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         private service: CenariosDeTesteService
     ) {
         super(messageService, loadingService, formBuilder);
-        this.atualizarMensagensValidacao();
+        this.updateValidationMessages();
     }
 
     ngOnInit(): void {
-        this.criarFormulario();
-        this.carregarFormulario();
+        this.createForms();
+        this.loadFormData();
     }
 
-    onClickCancelar(): void {
+    onClickCancel(): void {
         this.notifyCancelation();
     }
 
-    async onClickSalvar(): Promise<void> {
+    async onClickSave(): Promise<void> {
         if (await this.onClientFailed()) {
             return;
         }
 
-        this.block('Salvando...');
+        this.block('Saving...');
 
         const request: any = {
             //    TODO: Integrar quando for feito
@@ -58,7 +58,7 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         );
     }
 
-    private criarFormulario(): void {
+    private createForms(): void {
         this.form = this.formBuilder.group({
             codigo: [null, Validators.required],
             input: [null, Validators.required],
@@ -66,7 +66,7 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         });
     }
 
-    private carregarFormulario(): void {
+    private loadFormData(): void {
         this.form.patchValue({
             codigo: this.cenario.codigo,
             input: JSON.stringify(this.cenario.input),
@@ -74,7 +74,7 @@ export class EditarCenarioDeTesteComponent extends ModalBaseAbstract implements 
         });
     }
 
-    private atualizarMensagensValidacao(): void {
+    private updateValidationMessages(): void {
         super.setValidationMessages({
             codigo: {
                 required: 'Informe o Codigo'

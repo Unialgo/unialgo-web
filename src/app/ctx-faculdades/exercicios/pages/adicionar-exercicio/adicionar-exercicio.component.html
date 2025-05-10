@@ -6,13 +6,13 @@
         <form [formGroup]="form" class="p-fluid">
             <div class="grid">
                 <div class="col-12">
-                    <label for="titulo" class="block font-bold mb-3">Título</label>
-                    <input type="text" pInputText id="titulo" formControlName="titulo" class="w-full" />
+                    <label for="title" class="block font-bold mb-3">Título</label>
+                    <input type="text" pInputText id="title" formControlName="title" class="w-full" />
                 </div>
                 <div class="col-12">
                     <label for="enunciado" class="block font-bold mb-3">Enunciado</label>
                     <div class="flex flex-column sm:flex-row justify-between items-start sm:items-center mb-2">
-                        <p-button icon="pi pi-magic" label="Gerar Enunciado ✨" (onClick)="abrirDialogGeracaoEnunciado()"
+                        <p-button icon="pi pi-magic" label="Gerar Enunciado ✨" (onClick)="openStatmentGenerationDialog()"
                             severity="secondary" styleClass="mb-2"></p-button>
                     </div>
                     <textarea class="w-full" id="enunciado" pTextarea formControlName="enunciado"
@@ -24,8 +24,8 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <div class="w-full flex flex-column sm:flex-row justify-between items-center gap-2">
-            <p-button severity="secondary" (onClick)="onClickCancelar()" pRipple styleClass="w-full sm:w-auto mb-2 sm:mb-0">Cancelar</p-button>
-            <p-button severity="primary" (onClick)="onClickSalvar()" pRipple styleClass="w-full sm:w-auto">Salvar</p-button>
+            <p-button severity="secondary" (onClick)="onClickCancel()" pRipple styleClass="w-full sm:w-auto mb-2 sm:mb-0">Cancelar</p-button>
+            <p-button severity="primary" (onClick)="onClickSave()" pRipple styleClass="w-full sm:w-auto">Salvar</p-button>
         </div>
     </ng-template>
 </p-dialog>
@@ -50,7 +50,7 @@
         <div class="flex flex-column sm:flex-row justify-end gap-2">
             <p-button label="Cancelar" icon="pi pi-times" (onClick)="geracaoEnunciadoVisible = false"
                 styleClass="p-button-text w-full sm:w-auto mb-2 sm:mb-0" [disabled]="gerandoEnunciado"></p-button>
-            <p-button label="Gerar enunciado" icon="pi pi-magic" (onClick)="gerarEnunciado()"
+            <p-button label="Gerar enunciado" icon="pi pi-magic" (onClick)="generateStatement()"
                 severity="primary" [loading]="gerandoEnunciado" styleClass="w-full sm:w-auto"></p-button>
         </div>
     </ng-template>

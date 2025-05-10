@@ -10,9 +10,9 @@ import { NotificationType } from '../enums';
 @Component({template: ''})
 export abstract class EntityListAbstract extends BaseAbstract {
     searchValue: string = '';
-    adicionarVisible: boolean = false;
-    editarVisible: boolean = false;
-    excluirVisible: boolean = false;
+    createVisible: boolean = false;
+    updateVisible: boolean = false;
+    deleteVisible: boolean = false;
 
     constructor(
         messageService: MessageService,
@@ -20,8 +20,8 @@ export abstract class EntityListAbstract extends BaseAbstract {
         super(messageService, loadingService);
     }
 
-    onClickClear(table: Table): void {
-        this.notify(NotificationType.SUCCESS, undefined, 'Filtros removidos com sucesso.');
+    onClickClearFilters(table: Table): void {
+        this.notify(NotificationType.INFO, undefined, 'Filters cleared');
         table.clear();
         this.searchValue = '';
     }

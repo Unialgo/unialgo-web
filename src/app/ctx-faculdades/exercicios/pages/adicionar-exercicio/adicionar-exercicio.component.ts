@@ -30,40 +30,38 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         private aiService: AIService
     ) {
         super(messageService, loadingService, formBuilder);
-        this.atualizarMensagensValidacao();
+        this.updateValidationMessages();
     }
 
     ngOnInit(): void {
-        this.criarFormulario();
+        this.createForms();
     }
 
-    onClickCancelar(): void {
+    onClickCancel(): void {
         this.notifyCancelation();
     }
 
-    abrirDialogGeracaoEnunciado(): void {
+    openStatmentGenerationDialog(): void {
         this.geracaoEnunciadoVisible = true;
     }
 
-    gerarEnunciado(): void {
-        const titulo = this.form.get('titulo')?.value;
+    generateStatement(): void {
+        const title = this.form.get('title')?.value;
 
-        // Valida titulo
-        if (!titulo) {
+        if (!title) {
             this.messageService.add({
                 severity: 'warn',
-                summary: 'Atenção',
+                summary: 'Warning',
                 detail: 'Preencha o título do exercício antes de gerar o enunciado.'
             });
             return;
         }
 
-        this.block('Gerando enunciado');
+        this.block('Generating statement');
         this.gerandoEnunciado = true;
 
-        // Chama serviço
-        this.aiService.gerarEnunciado({
-            title: titulo,
+        this.aiService.generateStatement({
+            title: title,
             context: this.contextoAdicional || 'Sem contexto adicional'
         }).subscribe({
             next: (response) => {
@@ -94,15 +92,15 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         });
     }
 
-    async onClickSalvar(): Promise<void> {
+    async onClickSave(): Promise<void> {
         if (await this.onClientFailed()) {
             return;
         }
 
-        this.block('Salvando...');
+        this.block('Saving...');
 
         const request: any = {
-            title: this.form.value.titulo,
+            title: this.form.value.title,
             statement: this.form.value.enunciado
         };
 
@@ -110,7 +108,7 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
             () => {
                 this.unlock();
                 this.notifySuccess(true);
-                this.notify(NotificationType.SUCCESS, 'Exercicio Adicionado');
+                this.notify(NotificationType.SUCCESS, 'Question created');
             },
             (error) => {
                 this.unlock();
@@ -119,16 +117,16 @@ export class AdicionarExercicioComponent extends ModalBaseAbstract implements On
         );
     }
 
-    private criarFormulario(): void {
+    private createForms(): void {
         this.form = this.formBuilder.group({
-            titulo: [null, Validators.required],
+            title: [null, Validators.required],
             enunciado: [null, Validators.required]
         });
     }
 
-    private atualizarMensagensValidacao(): void {
+    private updateValidationMessages(): void {
         super.setValidationMessages({
-            titulo: {
+            title: {
                 required: 'Informe o Titulo'
             },
             enunciado: {
