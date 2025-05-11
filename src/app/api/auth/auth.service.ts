@@ -44,7 +44,6 @@ export class AuthService {
 
         return this.http.post<any>(`${this.url}/public/users/refresh`, { refreshToken: refreshToken }).pipe(
             map((o) => {
-                console.log(o);
                 this.setSession(o);
             })
         );

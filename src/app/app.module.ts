@@ -15,14 +15,14 @@ import { AppRoutingModule, routes } from './app-routing.module';
 import { AuthModule } from './ctx-auth/auth.module';
 import { LibrariesModule } from './libraries/libraries.module';
 import { DashboardModule } from './ctx-dashboards/dashboard.module';
-import { FaculdadesModule } from './ctx-faculdades/faculdades.module';
+import { UniversityModule } from './ctx-university/university.module';
 import { AuthInterceptor } from './api/http-interceptors';
 
 const components = [AppComponent];
 
 const foreignModules = [BrowserModule, FormsModule];
 
-const localModules = [AppRoutingModule, LayoutModule, AuthModule, PrimeNGModule, LibrariesModule, DashboardModule, FaculdadesModule];
+const localModules = [AppRoutingModule, LayoutModule, AuthModule, PrimeNGModule, LibrariesModule, DashboardModule, UniversityModule];
 
 @NgModule({
     declarations: [...components],

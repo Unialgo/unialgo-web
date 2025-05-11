@@ -10,7 +10,7 @@ import {Component, OnInit} from '@angular/core';
 export class DashboardProfessorComponent implements OnInit {
     currentDate: Date = new Date();
     username: string = 'User';
-    exercisesCreated: number = 37;
+    questionsCreated: number = 37;
 
     private timer: any;
 

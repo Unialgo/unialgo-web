@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { AuthGuard } from './api/auth';
 import { LoginComponent } from './ctx-auth/pages/login/login.component';
+import { ListQuestionsComponent } from './ctx-university/questions/pages';
 import { SignUpComponent } from './ctx-auth/pages/sign-up/sign-up.component';
-import { ListarExerciciosComponent } from './ctx-faculdades/exercicios/pages';
 import { AppLayout } from './ctx-layout/layout/component/app.layout.component';
+import { ListQuestionListComponent } from './ctx-university/question-lists/pages';
 import { NotFoundComponent } from './ctx-layout/pages/notfound/notfound.component';
 import { DashboardProfessorComponent } from './ctx-dashboards/pages/dashboard-professor/dashboard-professor.component';
-import { ListQuestionListComponent } from './ctx-faculdades/question-lists/pages/list-question-list/list-question-list.component';
 
 export const routes: Routes = [
     {
@@ -23,7 +24,7 @@ export const routes: Routes = [
             {
                 path: 'faculdades',
                 children: [
-                    { path: 'exercicios', component: ListarExerciciosComponent },
+                    { path: 'exercicios', component: ListQuestionsComponent },
                     { path: 'lists', component: ListQuestionListComponent }
                 ]
             }
