@@ -67,6 +67,7 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
     onEditarSuccessEvent(event: any): void {
         this.updateVisible = false;
         this.selectedQuestionList = null;
+        this.onClickReload();
     }
 
     onEditarCancelationEvent(event: any): void {

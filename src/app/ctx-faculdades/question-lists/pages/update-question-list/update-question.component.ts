@@ -73,16 +73,12 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
     }
 
     private loadFormData(): void {
-        console.log(this.questionLists)
         this.form.patchValue({
             title: this.questionLists.title,
             description: this.questionLists.description,
             startDate: new Date(this.questionLists.startDate),
-            endDate: this.questionLists.endDate
+            endDate: new Date(this.questionLists.endDate)
         });
-
-        console.log(this.form.value.startDate)
-        console.log(this.form.value.endDate)
     }
 
     private updateValidationMessages(): void {
