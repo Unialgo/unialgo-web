@@ -17,7 +17,7 @@ import { Question, QuestionsService } from '../../../../api/university';
 export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) questionList!: List;
 
-    assignmentQuestions: Question[];
+    assignmentQuestions: Question[] = [];
 
     constructor(
         protected override messageService: MessageService,
@@ -76,9 +76,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         };
 
         this.service.addQuestionToList(request).subscribe(
-            () => {
-                this.notify(NotificationType.SUCCESS, 'List successfully updated');
-            },
+            () => {},
             (error) => {
                 this.notify(NotificationType.ERROR, error.message);
             }
@@ -86,17 +84,13 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
     }
 
     onDeleteQuestionFromList(event: any): void {
-        console.log(event)
-
         const request: DeleteQuestionFromListRequest = {
             listId: this.questionList.id,
             questionId: event.id
         };
 
         this.service.deleteQuestionFromList(request).subscribe(
-            () => {
-                this.notify(NotificationType.SUCCESS, 'List successfully updated');
-            },
+            () => {},
             (error) => {
                 this.notify(NotificationType.ERROR, error.message);
             }
@@ -112,9 +106,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         };
 
         this.service.updateQuestionsFromList(request).subscribe(
-            () => {
-                this.notify(NotificationType.SUCCESS, 'List successfully updated');
-            },
+            () => {},
             (error) => {
                 this.notify(NotificationType.ERROR, error.message);
             }

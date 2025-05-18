@@ -18,7 +18,8 @@ export class ManageQuestionListComponent {
     onSelectQuestion(question: any) {
         if (!this.list.includes(question)) {
             this.list.push(question);
-            this.onAddQuestionToListEvent.emit(this.list.find(o => o.id == question.id))
+            let index = this.list.indexOf(question)
+            this.onAddQuestionToListEvent.emit({...question, index: index})
         }
     }
 
