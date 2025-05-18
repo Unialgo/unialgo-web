@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
-        <p-button severity="success" [outlined]="true" label="Create List" icon="pi pi-plus" (onClick)="onClickCreate()" pRipple />
+        <p-button severity="success" [outlined]="true" label="Create Assignment" icon="pi pi-plus" (onClick)="onClickCreate()" pRipple />
     </ng-template>
     <ng-template #end>
         <p-button [outlined]="true" icon="pi pi-filter-slash" (click)="onClickClearFilters(dt)" />
@@ -8,7 +8,7 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="questionLists" [(selection)]="selectedQuestionLists" [rows]="10" [paginator]="true" [globalFilterFields]="['title', 'description', 'startDate', 'endDate']" [sortMode]="'multiple'" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
+<p-table #dt [value]="Assignments" [(selection)]="selectedAssignments" [rows]="10" [paginator]="true" [globalFilterFields]="['title', 'description', 'startDate', 'endDate']" [sortMode]="'multiple'" [rowHover]="true" dataKey="id" [rowsPerPageOptions]="[10, 20, 50, 100]">
     <ng-template #caption>
         <div class="flex items-center justify-between">
             <h5 class="m-0">Question Lists</h5>
@@ -59,21 +59,21 @@
     </ng-template>
 </p-table>
 
-<ctx-university-create-question-list *ngIf="createVisible" [visible]="createVisible" (visibleEvent)="onCreateVisibleEvent($event)" (successEvent)="onCreateSuccessEvent($event)" (cancelationEvent)="onCreateCancelationEvent($event)" />
+<ctx-university-create-assignment *ngIf="createVisible" [visible]="createVisible" (visibleEvent)="onCreateVisibleEvent($event)" (successEvent)="onCreateSuccessEvent($event)" (cancelationEvent)="onCreateCancelationEvent($event)" />
 
-<ctx-university-update-question-list
-    *ngIf="updateVisible && selectedQuestionList"
+<ctx-university-update-assignment
+    *ngIf="updateVisible && selectedAssignment"
     [visible]="updateVisible"
-    [questionList]="selectedQuestionList"
+    [Assignment]="selectedAssignment"
     (visibleEvent)="onUpdateVisibleEvent($event)"
     (successEvent)="onUpdateSuccessEvent($event)"
     (cancelationEvent)="onUpdateCancelationEvent($event)"
 />
 
-<ctx-university-delete-question-list
-    *ngIf="deleteVisible && selectedQuestionList"
+<ctx-university-delete-assignment
+    *ngIf="deleteVisible && selectedAssignment"
     [visible]="deleteVisible"
-    [questionList]="selectedQuestionList"
+    [Assignment]="selectedAssignment"
     (visibleEvent)="onDeleteVisibleEvent($event)"
     (successEvent)="onDeleteSuccessEvent($event)"
     (cancelationEvent)="onDeleteCancelationEvent($event)"

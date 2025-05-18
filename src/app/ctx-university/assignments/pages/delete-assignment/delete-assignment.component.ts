@@ -6,22 +6,22 @@ import { MessageService } from 'primeng/api';
 import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { List, ListsService } from '../../../../api/university/list';
+import { Assignment, AssignmentsService } from '../../../../api/university/assignment';
 
 @Component({
-    selector: 'ctx-university-delete-question-list',
-    templateUrl: 'delete-question-list.component.html',
+    selector: 'ctx-university-delete-assignment',
+    templateUrl: 'delete-assignment.component.html',
     standalone: false
 })
-export class DeleteQuestionListComponent extends ModalBaseAbstract implements OnInit {
-    @Input({ required: true }) questionList!: List;
-    title: string = 'Delete Question List';
+export class DeleteAssignmentComponent extends ModalBaseAbstract implements OnInit {
+    @Input({ required: true }) Assignment!: Assignment;
+    title: string = 'Delete Assignment';
 
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder,
-        private service: ListsService
+        private service: AssignmentsService
     ) {
         super(messageService, loadingService, formBuilder);
     }
@@ -34,11 +34,11 @@ export class DeleteQuestionListComponent extends ModalBaseAbstract implements On
 
     onClickDelete(): void {
         this.block('Deleting...');
-        this.service.delete({id: this.questionList.id}).subscribe(
+        this.service.delete({id: this.Assignment.id}).subscribe(
             () => {
                 this.unlock();
                 this.notifySuccess(true);
-                this.notify(NotificationType.SUCCESS, 'List successfully deleted')
+                this.notify(NotificationType.SUCCESS, 'Assignment successfully deleted')
             },
             (error) => {
                 this.unlock();

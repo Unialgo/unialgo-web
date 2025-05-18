@@ -6,24 +6,24 @@ import { MessageService } from 'primeng/api';
 import { NotificationType } from '../../../../libraries/enums';
 import { EntityListAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { List, ListsService } from '../../../../api/university/list';
+import { Assignment, AssignmentsService } from '../../../../api/university/assignment';
 
 @Component({
-    selector: 'ctx-university-list-question-list',
-    templateUrl: 'list-question-list.component.html',
+    selector: 'ctx-university-list-assignment',
+    templateUrl: 'list-assignments.component.html',
     standalone: false
 })
-export class ListQuestionListComponent extends EntityListAbstract implements OnInit {
+export class ListAssignmentComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
 
-    questionLists!: List[];
-    selectedQuestionList: List | null = null;
-    selectedQuestionLists: List[] = [];
+    Assignments!: Assignment[];
+    selectedAssignment: Assignment | null = null;
+    selectedAssignments: Assignment[] = [];
 
     constructor(
         messageService: MessageService,
         loadingService: LoadingService,
-        private service: ListsService
+        private service: AssignmentsService
     ) {
         super(messageService, loadingService);
     }
@@ -54,52 +54,52 @@ export class ListQuestionListComponent extends EntityListAbstract implements OnI
         this.createVisible = false;
     }
 
-    onClickUpdate(questionLists: List) {
-        this.selectedQuestionList = questionLists;
+    onClickUpdate(Assignments: Assignment) {
+        this.selectedAssignment = Assignments;
         this.updateVisible = true;
     }
 
     onUpdateVisibleEvent(event: any): void {
         this.updateVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
     }
 
     onUpdateSuccessEvent(event: any): void {
         this.updateVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
         this.onClickReload();
     }
 
     onUpdateCancelationEvent(event: any): void {
         this.updateVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
     }
 
-    onClickDelete(questionLists: List) {
-        this.selectedQuestionList = questionLists;
+    onClickDelete(Assignments: Assignment) {
+        this.selectedAssignment = Assignments;
         this.deleteVisible = true;
     }
 
     onDeleteVisibleEvent(event: any): void {
         this.deleteVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
     }
 
     onDeleteSuccessEvent(event: any): void {
         this.deleteVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
         this.onClickReload();
     }
 
     onDeleteCancelationEvent(event: any): void {
         this.deleteVisible = false;
-        this.selectedQuestionList = null;
+        this.selectedAssignment = null;
     }
 
     private getData(): void {
         this.service.getAll().subscribe(
             (res) => {
-                this.questionLists = res;
+                this.Assignments = res;
                 this.unlock();
             },
             (error) => {

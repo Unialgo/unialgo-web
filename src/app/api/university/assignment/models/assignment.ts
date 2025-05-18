@@ -1,4 +1,4 @@
-export interface List {
+export interface Assignment {
     id: string;
     teacherId: string;
     title: string;

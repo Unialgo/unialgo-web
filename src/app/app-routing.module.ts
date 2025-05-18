@@ -7,7 +7,7 @@ import { LoginComponent } from './ctx-auth/pages/login/login.component';
 import { ListQuestionsComponent } from './ctx-university/questions/pages';
 import { SignUpComponent } from './ctx-auth/pages/sign-up/sign-up.component';
 import { AppLayout } from './ctx-layout/layout/component/app.layout.component';
-import { ListQuestionListComponent } from './ctx-university/question-lists/pages';
+import { ListAssignmentComponent } from './ctx-university/assignments/pages';
 import { NotFoundComponent } from './ctx-layout/pages/notfound/notfound.component';
 import { DashboardProfessorComponent } from './ctx-dashboards/pages/dashboard-professor/dashboard-professor.component';
 
@@ -27,7 +27,7 @@ export const routes: Routes = [
                 path: 'faculdades',
                 children: [
                     { path: 'questions', component: ListQuestionsComponent },
-                    { path: 'lists', component: ListQuestionListComponent }
+                    { path: 'lists', component: ListAssignmentComponent }
                 ]
             }
         ]

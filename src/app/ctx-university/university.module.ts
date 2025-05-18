@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 
 import { PrimeNGModule } from '../prime-ng/prime-ng.module';
 import { TestCaseModule } from './test-cases/test-case.module';
-import { QuestionListsModule } from './question-lists/question-lists.module';
+import { AssigmentModule } from './assignments/assignment.module';
 import { QuestionModule } from './questions/question.module';
 
-const exports = [QuestionModule, TestCaseModule, QuestionListsModule];
+const exports = [QuestionModule, TestCaseModule, AssigmentModule];
 
-const imports = [PrimeNGModule, FormsModule, QuestionModule, TestCaseModule, QuestionListsModule];
+const imports = [PrimeNGModule, FormsModule, QuestionModule, TestCaseModule, AssigmentModule];
 
 @NgModule({
     imports: [...imports],

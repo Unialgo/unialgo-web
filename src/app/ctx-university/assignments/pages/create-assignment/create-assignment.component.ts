@@ -7,20 +7,20 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { CreateListRequest, ListsService } from '../../../../api/university/list';
+import { CreateAssignmentRequest, AssignmentsService } from '../../../../api/university/assignment';
 
 @Component({
-    selector: 'ctx-university-create-question-list',
-    templateUrl: 'create-question-list.component.html',
+    selector: 'ctx-university-create-assignment',
+    templateUrl: 'create-assignment.component.html',
     standalone: false,
     providers: [DialogService]
 })
-export class CreateQuestionListComponent extends ModalBaseAbstract implements OnInit {
+export class CreateAssignmentComponent extends ModalBaseAbstract implements OnInit {
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder,
-        private service: ListsService
+        private service: AssignmentsService
     ) {
         super(messageService, loadingService, formBuilder);
         this.updateValidationMessages();
@@ -41,7 +41,7 @@ export class CreateQuestionListComponent extends ModalBaseAbstract implements On
 
         this.block('Saving...');
 
-        const request: CreateListRequest = {
+        const request: CreateAssignmentRequest = {
             title: this.form.value.title,
             description: this.form.value.description,
             startDate: this.form.value.startDate,
@@ -52,7 +52,7 @@ export class CreateQuestionListComponent extends ModalBaseAbstract implements On
             () => {
                 this.unlock();
                 this.notifySuccess(true);
-                this.notify(NotificationType.SUCCESS, 'List successfully created');
+                this.notify(NotificationType.SUCCESS, 'Assignment successfully created');
             },
             (error) => {
                 this.unlock();

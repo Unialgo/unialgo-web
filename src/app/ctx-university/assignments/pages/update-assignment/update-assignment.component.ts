@@ -5,17 +5,17 @@ import { MessageService } from 'primeng/api';
 
 import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
-import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { AddQuestionToAssignmentRequest, DeleteQuestionFromListRequest, List, ListsService, UpdateListRequest, UpdateQuestionListRequest } from '../../../../api/university/list';
 import { Question, QuestionsService } from '../../../../api/university';
+import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
+import { AddQuestionToAssignmentRequest, DeleteQuestionFromListRequest, Assignment, AssignmentsService, UpdateListRequest, UpdateAssignmentRequest } from '../../../../api/university/assignment';
 
 @Component({
-    selector: 'ctx-university-update-question-list',
+    selector: 'ctx-university-update-assignment',
     templateUrl: 'update-question.component.html',
     standalone: false
 })
 export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit {
-    @Input({ required: true }) questionList!: List;
+    @Input({ required: true }) Assignment!: Assignment;
 
     assignmentQuestions: Question[] = [];
 
@@ -23,7 +23,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder,
-        private service: ListsService,
+        private service: AssignmentsService,
         private questionsService: QuestionsService
     ) {
         super(messageService, loadingService, formBuilder);
@@ -48,7 +48,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         this.block('Saving...');
 
         const request: UpdateListRequest = {
-            id: this.questionList.id,
+            id: this.Assignment.id,
             title: this.form.value.title,
             description: this.form.value.description,
             startDate: this.form.value.startDate,
@@ -59,7 +59,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
             () => {
                 this.unlock();
                 this.notifySuccess(true);
-                this.notify(NotificationType.SUCCESS, 'List successfully updated');
+                this.notify(NotificationType.SUCCESS, 'Assignment successfully updated');
             },
             (error) => {
                 this.unlock();
@@ -70,7 +70,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
 
     onAddQuestionToList(event: any): void {
         const request: AddQuestionToAssignmentRequest = {
-            listId: this.questionList.id,
+            listId: this.Assignment.id,
             questionId: event.id,
             index: event.index
         };
@@ -85,7 +85,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
 
     onDeleteQuestionFromList(event: any): void {
         const request: DeleteQuestionFromListRequest = {
-            listId: this.questionList.id,
+            listId: this.Assignment.id,
             questionId: event.id
         };
 
@@ -97,9 +97,9 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         );
     }
 
-    async onChangeQuestionList(event: any[]): Promise<void> {
-        const request: UpdateQuestionListRequest = {
-            listId: this.questionList.id,
+    async onChangeAssignment(event: any[]): Promise<void> {
+        const request: UpdateAssignmentRequest = {
+            listId: this.Assignment.id,
             questions: event.map((o) => {
                 return { questionId: o.id, index: event.indexOf(o) };
             })
@@ -114,7 +114,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
     }
 
     private getAssignmentQuestions(): void {
-        this.questionsService.getAllByAssignmentId(this.questionList.id).subscribe(
+        this.questionsService.getAllByAssignmentId(this.Assignment.id).subscribe(
             (res) => {
                 this.assignmentQuestions = res;
             },
@@ -135,10 +135,10 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
 
     private loadFormData(): void {
         this.form.patchValue({
-            title: this.questionList.title,
-            description: this.questionList.description,
-            startDate: new Date(this.questionList.startDate),
-            endDate: new Date(this.questionList.endDate)
+            title: this.Assignment.title,
+            description: this.Assignment.description,
+            startDate: new Date(this.Assignment.startDate),
+            endDate: new Date(this.Assignment.endDate)
         });
     }
 

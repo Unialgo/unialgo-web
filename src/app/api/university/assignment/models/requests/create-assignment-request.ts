@@ -1,4 +1,4 @@
-export interface CreateListRequest {
+export interface CreateAssignmentRequest {
     title: string;
     description: string;
     startDate: Date;

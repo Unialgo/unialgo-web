@@ -2,12 +2,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'ctx-university-manage-question-list',
-    templateUrl: './manage-question-list.component.html',
-    styleUrls: ['./manage-question-list.component.scss'],
+    selector: 'ctx-university-manage-assignment-questions',
+    templateUrl: './manage-assignment-questions.component.html',
+    styleUrls: ['./manage-assignment-questions.component.scss'],
     standalone: false
 })
-export class ManageQuestionListComponent {
+export class ManageAssignmentQuestionsComponent {
     @Input() list: any[] = [];
     @Output() onAddQuestionToListEvent = new EventEmitter<any>();
     @Output() onDeleteQuestionFromListEvent = new EventEmitter<any>();

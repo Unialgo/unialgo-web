@@ -1,0 +1,1 @@
+export * from './manage-assignment/manage-assignment.component';
