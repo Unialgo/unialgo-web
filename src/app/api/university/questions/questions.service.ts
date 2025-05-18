@@ -31,4 +31,8 @@ export class QuestionsService {
     public getAll() {
         return this.http.get<Question[]>(`${this.url}`);
     }
+
+    public getAllByAssignmentId(id: string) {
+        return this.http.get<Question[]>(`${this.url}/${id}/assignment`);
+    }
 }

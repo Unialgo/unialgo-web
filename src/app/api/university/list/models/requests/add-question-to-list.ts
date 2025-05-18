@@ -1,4 +1,5 @@
-export interface AddQuestionToListRequest {
+export interface AddQuestionToAssignmentRequest {
     listId: string;
-    question: { questionId: string; index: number };
+    questionId: string; 
+    index: number;
 }

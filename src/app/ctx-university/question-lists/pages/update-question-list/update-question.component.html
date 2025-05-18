@@ -20,8 +20,9 @@
                 </div>
                 <div class="col-12">
                     <ctx-university-manage-question-list 
-                        (onAddQuestionToListEvent)="onAddQuestionToListEvent($event)" 
-                        (onDeleteQuestionFromListEvent)="onDeleteQuestionFromListEvent($event)" 
+                        [list]="assignmentQuestions"
+                        (onAddQuestionToListEvent)="onAddQuestionToList($event)" 
+                        (onDeleteQuestionFromListEvent)="onDeleteQuestionFromList($event)" 
                         (onChangeListEvent)="onChangeQuestionList($event)" />
                 </div>
             </div>

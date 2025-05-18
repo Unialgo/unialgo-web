@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../environments/environment';
-import { AddQuestionToListRequest, CreateListRequest, DeleteQuestionFromListRequest, List, UpdateListRequest, UpdateQuestionListRequest } from '.';
+import { AddQuestionToAssignmentRequest, CreateListRequest, DeleteQuestionFromListRequest, List, UpdateListRequest, UpdateQuestionListRequest } from '.';
 
 @Injectable({ providedIn: 'root' })
 export class ListsService {
     get url(): string {
-        return `${environment.apiUrl}/lists`;
+        return `${environment.apiUrl}/assignments`;
     }
 
     constructor(private http: HttpClient) {}
@@ -32,8 +32,10 @@ export class ListsService {
         return this.http.get<List[]>(`${this.url}`);
     }
 
-    public addQuestionToList(request: AddQuestionToListRequest) {
-        return this.http.post<any>(`${this.url}/${request.listId}/question`, request);
+    public addQuestionToList(request: AddQuestionToAssignmentRequest) {
+        const body = { questionId: request.questionId, index: request.index };
+
+        return this.http.post<any>(`${this.url}/${request.listId}/question`, body);
     }
 
     public updateQuestionsFromList(request: UpdateQuestionListRequest) {

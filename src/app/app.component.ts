@@ -19,10 +19,7 @@ export class AppComponent implements OnInit {
     }
 
     private checkAuthenticatedUser(): void {
-        if (this.auth.isLoggedOut()) {
-            this.auth.logout();
-            this.router.navigateByUrl('/login');
-        } else {
+        if (this.auth.isLoggedIn()) {
             this.auth.startTokenRefreshScheduler();
             this.auth.refreshToken();
         }

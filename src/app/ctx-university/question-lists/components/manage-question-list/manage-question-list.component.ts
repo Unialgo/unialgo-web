@@ -24,7 +24,7 @@ export class ManageQuestionListComponent {
 
     onClickRemove(index: any) {
         let deletedQuestion = this.list.splice(index, 1);
-        this.onDeleteQuestionFromListEvent.emit(deletedQuestion)
+        this.onDeleteQuestionFromListEvent.emit(deletedQuestion[0])
     }
 
     onDragAndDrop(event: CdkDragDrop<any[]>) {

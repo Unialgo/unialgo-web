@@ -6,7 +6,8 @@ import { MessageService } from 'primeng/api';
 import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { AddQuestionToListRequest, DeleteQuestionFromListRequest, List, ListsService, UpdateListRequest, UpdateQuestionListRequest } from '../../../../api/university/list';
+import { AddQuestionToAssignmentRequest, DeleteQuestionFromListRequest, List, ListsService, UpdateListRequest, UpdateQuestionListRequest } from '../../../../api/university/list';
+import { Question, QuestionsService } from '../../../../api/university';
 
 @Component({
     selector: 'ctx-university-update-question-list',
@@ -16,11 +17,14 @@ import { AddQuestionToListRequest, DeleteQuestionFromListRequest, List, ListsSer
 export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit {
     @Input({ required: true }) questionList!: List;
 
+    assignmentQuestions: Question[];
+
     constructor(
         protected override messageService: MessageService,
         protected override loadingService: LoadingService,
         protected override formBuilder: FormBuilder,
-        private service: ListsService
+        private service: ListsService,
+        private questionsService: QuestionsService
     ) {
         super(messageService, loadingService, formBuilder);
         this.updateValidationMessages();
@@ -29,6 +33,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
     ngOnInit(): void {
         this.createForms();
         this.loadFormData();
+        this.getAssignmentQuestions();
     }
 
     onClickCancel(): void {
@@ -63,28 +68,25 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
         );
     }
 
-    onAddQuestionToListEvent(event: any): void {
-        console.log(event);
-
-        const request: AddQuestionToListRequest = {
+    onAddQuestionToList(event: any): void {
+        const request: AddQuestionToAssignmentRequest = {
             listId: this.questionList.id,
-            question: { questionId: event.id, index: event.index }
+            questionId: event.id,
+            index: event.index
         };
 
         this.service.addQuestionToList(request).subscribe(
             () => {
-                this.unlock();
                 this.notify(NotificationType.SUCCESS, 'List successfully updated');
             },
             (error) => {
-                this.unlock();
                 this.notify(NotificationType.ERROR, error.message);
             }
         );
     }
 
-    onDeleteQuestionFromListEvent(event: any): void {
-        console.log(event);
+    onDeleteQuestionFromList(event: any): void {
+        console.log(event)
 
         const request: DeleteQuestionFromListRequest = {
             listId: this.questionList.id,
@@ -93,11 +95,9 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
 
         this.service.deleteQuestionFromList(request).subscribe(
             () => {
-                this.unlock();
                 this.notify(NotificationType.SUCCESS, 'List successfully updated');
             },
             (error) => {
-                this.unlock();
                 this.notify(NotificationType.ERROR, error.message);
             }
         );
@@ -113,12 +113,21 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
 
         this.service.updateQuestionsFromList(request).subscribe(
             () => {
-                this.unlock();
                 this.notify(NotificationType.SUCCESS, 'List successfully updated');
             },
             (error) => {
-                this.unlock();
                 this.notify(NotificationType.ERROR, error.message);
+            }
+        );
+    }
+
+    private getAssignmentQuestions(): void {
+        this.questionsService.getAllByAssignmentId(this.questionList.id).subscribe(
+            (res) => {
+                this.assignmentQuestions = res;
+            },
+            (error) => {
+                this.notify(NotificationType.ERROR, undefined, error.message);
             }
         );
     }

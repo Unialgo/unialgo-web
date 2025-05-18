@@ -12,6 +12,8 @@ import { NotFoundComponent } from './ctx-layout/pages/notfound/notfound.componen
 import { DashboardProfessorComponent } from './ctx-dashboards/pages/dashboard-professor/dashboard-professor.component';
 
 export const routes: Routes = [
+    { path: 'login', component: LoginComponent },
+    { path: 'sign-up', component: SignUpComponent },
     {
         path: '',
         component: AppLayout,
@@ -24,14 +26,12 @@ export const routes: Routes = [
             {
                 path: 'faculdades',
                 children: [
-                    { path: 'exercicios', component: ListQuestionsComponent },
+                    { path: 'questions', component: ListQuestionsComponent },
                     { path: 'lists', component: ListQuestionListComponent }
                 ]
             }
         ]
     },
-    { path: 'login', component: LoginComponent },
-    { path: 'sign-up', component: SignUpComponent },
     { path: 'notfound', component: NotFoundComponent },
     { path: '**', redirectTo: '/notfound' }
 ];

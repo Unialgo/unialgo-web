@@ -70,7 +70,7 @@ export class AppMenu {
         let items: MenuItem[] = [];
 
         if (this.auth.isLoggedIn()) {
-            items.push({ label: 'Exercicios', icon: 'pi pi-fw pi-file-edit', routerLink: ['faculdades/exercicios'] });
+            items.push({ label: 'Questions', icon: 'pi pi-fw pi-file-edit', routerLink: ['faculdades/questions'] });
         }
 
         if (this.auth.isLoggedIn()) {

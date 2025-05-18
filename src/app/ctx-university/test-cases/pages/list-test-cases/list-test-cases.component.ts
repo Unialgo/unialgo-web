@@ -15,7 +15,7 @@ import { NotificationType } from '../../../../libraries/enums';
 })
 export class ListTestCaseComponent extends EntityListAbstract implements OnInit {
     @ViewChild('dt') dt!: Table;
-    @Input({ required: true }) exercicioId: string;
+    @Input({ required: true }) questionId: string;
 
     cases!: TestCase[];
     selectedCase: TestCase | null = null;
@@ -95,7 +95,7 @@ export class ListTestCaseComponent extends EntityListAbstract implements OnInit 
     }
 
     private getData(): void {
-        this.service.getByQuestionId(this.exercicioId).subscribe(
+        this.service.getByQuestionId(this.questionId).subscribe(
             (res) => {
                 this.cases = res;
                 this.unlock();
