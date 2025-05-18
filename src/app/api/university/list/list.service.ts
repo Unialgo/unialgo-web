@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../environments/environment';
-import { CreateListRequest, List, UpdateListRequest } from '.';
+import { AddQuestionToListRequest, CreateListRequest, DeleteQuestionFromListRequest, List, UpdateListRequest, UpdateQuestionListRequest } from '.';
 
 @Injectable({ providedIn: 'root' })
 export class ListsService {
@@ -30,5 +30,17 @@ export class ListsService {
 
     public getAll() {
         return this.http.get<List[]>(`${this.url}`);
+    }
+
+    public addQuestionToList(request: AddQuestionToListRequest) {
+        return this.http.post<any>(`${this.url}/${request.listId}/question`, request);
+    }
+
+    public updateQuestionsFromList(request: UpdateQuestionListRequest) {
+        return this.http.put<any>(`${this.url}/${request.listId}/questions`, request);
+    }
+
+    public deleteQuestionFromList(request: DeleteQuestionFromListRequest) {
+        return this.http.delete<any>(`${this.url}/${request.listId}/${request.questionId}`);
     }
 }

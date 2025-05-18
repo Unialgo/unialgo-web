@@ -1,6 +1,4 @@
-<p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()"
-    [style]="{ width: 'auto'}"
-    header="Editar Question" [modal]="true">
+<p-dialog [(visible)]="visible" maximizable="true" draggable="false" (onHide)="onHide()" [style]="{ width: 'auto' }" header="Editar Question" [modal]="true">
     <ng-template #content>
         <form [formGroup]="form" class="p-fluid">
             <div class="grid">
@@ -21,7 +19,10 @@
                     <p-datepicker [showTime]="true" [hourFormat]="'24'" [showIcon]="true" dateFormat="dd/mm/yy" id="endDate" formControlName="endDate" class="w-full" appendTo="body" />
                 </div>
                 <div class="col-12">
-                    <ctx-university-manage-question-list />
+                    <ctx-university-manage-question-list 
+                        (onAddQuestionToListEvent)="onAddQuestionToListEvent($event)" 
+                        (onDeleteQuestionFromListEvent)="onDeleteQuestionFromListEvent($event)" 
+                        (onChangeListEvent)="onChangeQuestionList($event)" />
                 </div>
             </div>
         </form>

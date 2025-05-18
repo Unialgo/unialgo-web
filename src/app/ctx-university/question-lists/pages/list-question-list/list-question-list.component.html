@@ -64,7 +64,7 @@
 <ctx-university-update-question-list
     *ngIf="updateVisible && selectedQuestionList"
     [visible]="updateVisible"
-    [questionLists]="selectedQuestionList"
+    [questionList]="selectedQuestionList"
     (visibleEvent)="onUpdateVisibleEvent($event)"
     (successEvent)="onUpdateSuccessEvent($event)"
     (cancelationEvent)="onUpdateCancelationEvent($event)"
@@ -73,7 +73,7 @@
 <ctx-university-delete-question-list
     *ngIf="deleteVisible && selectedQuestionList"
     [visible]="deleteVisible"
-    [questionLists]="selectedQuestionList"
+    [questionList]="selectedQuestionList"
     (visibleEvent)="onDeleteVisibleEvent($event)"
     (successEvent)="onDeleteSuccessEvent($event)"
     (cancelationEvent)="onDeleteCancelationEvent($event)"

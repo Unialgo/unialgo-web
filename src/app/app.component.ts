@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
             this.auth.logout();
             this.router.navigateByUrl('/login');
         } else {
+            this.auth.startTokenRefreshScheduler();
             this.auth.refreshToken();
         }
     }
