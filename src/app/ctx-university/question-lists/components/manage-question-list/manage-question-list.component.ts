@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -8,7 +8,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
     standalone: false
 })
 export class ManageQuestionListComponent {
-    list: any[] = [];
+    @Input() list: any[] = [];
+
+    constructor() {}
 
     onSelectQuestion(question: any) {
         if (!this.list.includes(question)) {
