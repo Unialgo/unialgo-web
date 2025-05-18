@@ -24,7 +24,7 @@ export const routes: Routes = [
                 children: [{ path: 'professor', component: DashboardProfessorComponent }]
             },
             {
-                path: 'faculdades',
+                path: 'university',
                 children: [
                     { path: 'questions', component: ListQuestionsComponent },
                     { path: 'lists', component: ListAssignmentComponent }

@@ -49,9 +49,9 @@ export class AppMenu {
             this.model.push({ label: 'Dashboard', items: itemsDashboard });
         }
 
-        const itemsFaculdade = this.getFaculdadeItems();
-        if (itemsFaculdade.length > 0) {
-            this.model.push({ label: 'Faculdade', items: itemsFaculdade });
+        const itemsUniversity = this.getUniversityItems();
+        if (itemsUniversity.length > 0) {
+            this.model.push({ label: 'University', items: itemsUniversity });
         }
     }
 
@@ -66,15 +66,15 @@ export class AppMenu {
         return items;
     }
 
-    private getFaculdadeItems(): MenuItem[] {
+    private getUniversityItems(): MenuItem[] {
         let items: MenuItem[] = [];
 
         if (this.auth.isLoggedIn()) {
-            items.push({ label: 'Questions', icon: 'pi pi-fw pi-file-edit', routerLink: ['faculdades/questions'] });
+            items.push({ label: 'Questions', icon: 'pi pi-fw pi-file-edit', routerLink: ['university/questions'] });
         }
 
         if (this.auth.isLoggedIn()) {
-            items.push({ label: 'Lists', icon: 'pi pi-fw pi-list', routerLink: ['faculdades/lists'] });
+            items.push({ label: 'Lists', icon: 'pi pi-fw pi-list', routerLink: ['university/lists'] });
         }
 
         return items;
