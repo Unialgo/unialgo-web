@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from './api/auth';
 
@@ -8,11 +8,13 @@ import { AuthService } from './api/auth';
     standalone: false,
     template: `<app-loading-overlay></app-loading-overlay><app-notification /><router-outlet></router-outlet>`
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     constructor(
         private auth: AuthService,
         private router: Router
-    ) {
+    ) {}
+
+    ngOnInit(): void {
         this.checkAuthenticatedUser();
     }
 
@@ -20,6 +22,8 @@ export class AppComponent {
         if (this.auth.isLoggedOut()) {
             this.auth.logout();
             this.router.navigateByUrl('/login');
+        } else {
+            this.auth.refreshToken();
         }
     }
 }

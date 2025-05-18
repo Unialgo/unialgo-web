@@ -27,6 +27,7 @@ export class AuthService {
     ) {}
 
     public login(request: LoginRequest) {
+        this.clearSession();
         return this.http.post<any>(`${this.url}/public/users/login`, { ...request }).pipe(
             map((o) => {
                 this.setSession(o);
@@ -49,7 +50,7 @@ export class AuthService {
         );
     }
 
-    private setSession(authResult: any) {
+    private setSession(authResult: any): void {
         const expiresAt = moment().add(authResult.expires_in, 'second');
 
         localStorage.setItem('access_token', authResult.access_token);
@@ -58,11 +59,15 @@ export class AuthService {
         this.startTokenRefreshScheduler();
     }
 
-    logout() {
+    private clearSession(): void {
         this.stopTokenRefreshScheduler();
         localStorage.removeItem('access_token');
         localStorage.removeItem('expires_at');
         localStorage.removeItem('refresh_token');
+    }
+
+    logout() {
+        this.clearSession();
         this.router.navigateByUrl('/login');
     }
 
@@ -103,9 +108,9 @@ export class AuthService {
 
         this.refreshIntervalId = setInterval(() => {
             const expiresAt = this.getExpiration();
-            if (!expiresAt) return;
-
             const now = moment();
+
+            if (!expiresAt) return;
             const timeLeft = moment(expiresAt).diff(now, 'seconds');
 
             if (timeLeft < 60 && timeLeft > 0) {
