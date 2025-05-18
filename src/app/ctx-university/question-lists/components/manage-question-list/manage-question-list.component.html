@@ -1,0 +1,13 @@
+<label class="block font-bold mb-3">Questions in this list</label>
+<ctx-university-select-question (onSelectEvent)="onSelectQuestion($event)" />
+<hr />
+<div cdkDropList (cdkDropListDropped)="onDragAndDrop($event)" class="flex flex-col gap-2">
+    <div *ngFor="let q of list; let i = index" cdkDrag class="flex items-center justify-between p-2 drag-item">
+        <p-chip [label]="q.title"></p-chip>
+        <button pButton icon="pi pi-trash" class="p-button-text p-button-danger" (click)="onClickRemove(i)"></button>
+    </div>
+
+    <ng-container *ngIf="list.length === 0">
+        <p class="text-center text-sm text-gray-500 py-4 italic">No questions yet - pick one above.</p>
+    </ng-container>
+</div>

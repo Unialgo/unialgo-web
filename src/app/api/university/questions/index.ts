@@ -1,2 +1,2 @@
 export * from './models';
-export * from './question.service';
+export * from './questions.service';

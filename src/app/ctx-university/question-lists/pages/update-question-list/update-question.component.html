@@ -20,6 +20,9 @@
                     <label for="endDate" class="block font-bold mb-3">End Date</label>
                     <p-datepicker [showTime]="true" [hourFormat]="'24'" [showIcon]="true" dateFormat="dd/mm/yy" id="endDate" formControlName="endDate" class="w-full" appendTo="body" />
                 </div>
+                <div class="col-12">
+                    <ctx-university-manage-question-list />
+                </div>
             </div>
         </form>
     </ng-template>

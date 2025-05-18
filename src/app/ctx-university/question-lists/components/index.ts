@@ -1,0 +1,1 @@
+export * from './manage-question-list/manage-question-list.component';

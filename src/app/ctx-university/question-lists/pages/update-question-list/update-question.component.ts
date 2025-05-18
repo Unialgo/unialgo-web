@@ -3,9 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
+import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
-import { NotificationType } from '../../../../libraries/enums';
 import { List, ListsService, UpdateListRequest } from '../../../../api/university/list';
 
 @Component({
@@ -54,7 +54,7 @@ export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit
             () => {
                 this.unlock();
                 this.notifySuccess(true);
-                this.notify(NotificationType.SUCCESS, 'List successfully updated')
+                this.notify(NotificationType.SUCCESS, 'List successfully updated');
             },
             (error) => {
                 this.unlock();
