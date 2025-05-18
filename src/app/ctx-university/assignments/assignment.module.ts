@@ -21,4 +21,4 @@ const imports = [PrimeNGModule, FormsModule, ReactiveFormsModule, DragDropModule
     imports: [...imports],
     exports: [...exports]
 })
-export class AssigmentModule {}
+export class AssignmentModule {}

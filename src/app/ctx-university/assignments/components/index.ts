@@ -1,1 +1,1 @@
-export * from './manage-assignment/manage-assignment.component';
+export * from './manage-assignment-questions/manage-assignment-questions.component';

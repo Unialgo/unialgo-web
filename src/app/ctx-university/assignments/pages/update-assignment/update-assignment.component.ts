@@ -11,7 +11,7 @@ import { AddQuestionToAssignmentRequest, DeleteQuestionFromListRequest, Assignme
 
 @Component({
     selector: 'ctx-university-update-assignment',
-    templateUrl: 'update-question.component.html',
+    templateUrl: 'update-assignment.component.html',
     standalone: false
 })
 export class UpdateQuestionComponent extends ModalBaseAbstract implements OnInit {
