@@ -36,7 +36,7 @@ export class AuthService {
     }
 
     public signup(request: SignupRequest) {
-        return this.http.post<any>(`${this.url}/public/users/signup`, { ...request });
+        return this.http.post(`${this.url}/public/users/signup`, { ...request }, { responseType: 'text' });
     }
 
     refreshToken() {
