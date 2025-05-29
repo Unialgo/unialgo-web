@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .overlay {
     position: fixed;
     top: 0;
@@ -10,21 +12,67 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 6px solid var(--primary-contrast-color);
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
+.overlay-container{
+  width: 12%;
+  row-gap: 20px;
+}
+
+.loading-message {
+  text-align: center;
+}
+
+$w: 12.5em;
+$l: .05*$w;
+$r: .5*$l;
+$a: round(math.atan($r/$l) + 1deg);
+
+html, body, div { display: grid }
+html { min-height: 100% }
+
+body {
+	grid-template-columns: repeat(auto-fit, min(100%, #{2*$w}));
+	place-content: space-around;
+}
+
+.loader {
+	--c0: var(--primary-contrast-color);
+	--c1: var(--primary-color);
+  container-type: inline-size;
+	-webkit-box-reflect: below 0
+    linear-gradient(#0000, #0000, RGB(0 0 0/ .333));
+
+	&::before, &::after {
+		grid-area: 1/ 1;
+		place-self: start center;
+		border-radius: 50%;
+		animation: a 2s linear infinite;
+		content: ''
+	}
+	
+	&::before {
+		--l: conic-gradient(red 0 0);
+		box-sizing: border-box;
+		padding: $l;
+		width: 50cqw;
+		aspect-ratio: 1;
+		background: 
+			conic-gradient(#0000 $a, var(--c0) 50%, 
+					#0000 0% 180deg + $a, var(--c1));
+		mask: var(--l) exclude, var(--l) content-box
+	}
+	
+	&::after {
+		padding: $r;
+		transform-origin: 50% 25cqw;
+		background: currentcolor;
+		color: var(--c1);
+		box-shadow: 0 0 $r, 0 0 2*$r, 0 0 3*$r,
+			0 0 4*$r, 0 0 5*$r, 0 0 6*$r, 0 0 7*$r,
+			0 0 8*$r, 0 0 9*$r, 0 0 10*$r;
+		filter: drop-shadow(0 calc(50cqw - #{$l}) var(--c0))
+	}
+}
+
+@keyframes a { to { rotate: 1turn } }
