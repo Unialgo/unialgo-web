@@ -1,0 +1,151 @@
+<p-dialog 
+    header="Submit Code" 
+    [modal]="true" 
+    [visible]="visible" 
+    (onHide)="onVisibleChange(false)"
+    [style]="{ width: '50rem' }" 
+    [draggable]="false" 
+    [resizable]="false">
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-6">
+            <!-- Question Selection -->
+            <div class="flex flex-col gap-2">
+                <label for="questionId" class="font-semibold">Question *</label>
+                <p-dropdown
+                    id="questionId"
+                    formControlName="questionId"
+                    [options]="questions"
+                    optionLabel="title"
+                    optionValue="id"
+                    placeholder="Select a question"
+                    [filter]="true"
+                    filterBy="title"
+                    class="w-full">
+                </p-dropdown>
+                <small *ngIf="form.get('questionId')?.invalid && form.get('questionId')?.touched" 
+                       class="text-red-500">
+                    Question is required
+                </small>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="flex flex-col gap-2">
+                <label for="languageId" class="font-semibold">Programming Language *</label>
+                <p-dropdown
+                    id="languageId"
+                    formControlName="languageId"
+                    [options]="languages"
+                    optionLabel="name"
+                    optionValue="id"
+                    placeholder="Select a language"
+                    class="w-full">
+                </p-dropdown>
+                <small *ngIf="form.get('languageId')?.invalid && form.get('languageId')?.touched" 
+                       class="text-red-500">
+                    Language is required
+                </small>
+            </div>
+
+            <!-- Submission Method -->
+            <div class="flex flex-col gap-2">
+                <label class="font-semibold">Submission Method</label>
+                <div class="flex gap-4">
+                    <div class="flex items-center">
+                        <p-radioButton 
+                            inputId="file" 
+                            value="file" 
+                            [(ngModel)]="submissionMethod"
+                            (onChange)="onMethodChange('file')"
+                            [ngModelOptions]="{standalone: true}">
+                        </p-radioButton>
+                        <label for="file" class="ml-2">Upload File</label>
+                    </div>
+                    <div class="flex items-center">
+                        <p-radioButton 
+                            inputId="code" 
+                            value="code" 
+                            [(ngModel)]="submissionMethod"
+                            (onChange)="onMethodChange('code')"
+                            [ngModelOptions]="{standalone: true}">
+                        </p-radioButton>
+                        <label for="code" class="ml-2">Paste Code</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div *ngIf="submissionMethod === 'file'" class="flex flex-col gap-2">
+                <label class="font-semibold">Source Code File *</label>
+                <p-fileUpload 
+                    mode="basic" 
+                    name="file"
+                    [auto]="false"
+                    [multiple]="false"
+                    accept=".c,.cpp,.java,.py,.js,.h,.hpp"
+                    [maxFileSize]="1000000"
+                    (onSelect)="onFileSelect($event)"
+                    (onRemove)="onFileRemove()"
+                    chooseLabel="Choose File"
+                    class="w-full">
+                </p-fileUpload>
+                <small class="text-gray-600">
+                    Supported formats: .c, .cpp, .java, .py, .js (Max: 1MB)
+                </small>
+                <div *ngIf="selectedFile" class="mt-2">
+                    <p-tag 
+                        [value]="selectedFile.name" 
+                        severity="success" 
+                        icon="pi pi-file">
+                    </p-tag>
+                </div>
+            </div>
+
+            <!-- Code Input -->
+            <div *ngIf="submissionMethod === 'code'" class="flex flex-col gap-2">
+                <label for="sourceCode" class="font-semibold">Source Code *</label>
+                <textarea
+                    id="sourceCode"
+                    formControlName="sourceCode"
+                    pInputTextarea
+                    rows="15"
+                    cols="30"
+                    placeholder="Paste your source code here..."
+                    class="w-full font-mono">
+                </textarea>
+                <small *ngIf="form.get('sourceCode')?.invalid && form.get('sourceCode')?.touched" 
+                       class="text-red-500">
+                    Source code is required
+                </small>
+            </div>
+
+            <!-- Info Panel -->
+            <p-panel header="Submission Guidelines" [toggleable]="true" [collapsed]="true">
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Ensure your code compiles without errors</li>
+                    <li>• Read input from standard input (stdin)</li>
+                    <li>• Write output to standard output (stdout)</li>
+                    <li>• Your solution will be tested against multiple test cases</li>
+                    <li>• Execution time and memory limits apply</li>
+                </ul>
+            </p-panel>
+        </div>
+    </form>
+
+    <ng-template #footer>
+        <div class="flex justify-end gap-2">
+            <p-button 
+                label="Cancel" 
+                severity="secondary" 
+                [outlined]="true"
+                (onClick)="onCancel()">
+            </p-button>
+            <p-button 
+                label="Submit Code" 
+                icon="pi pi-send"
+                (onClick)="onSubmit()"
+                [disabled]="form.invalid || (submissionMethod === 'file' && !selectedFile)">
+            </p-button>
+        </div>
+    </ng-template>
+</p-dialog>

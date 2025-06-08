@@ -1,0 +1,164 @@
+<p-dialog 
+    header="Submission Details" 
+    [modal]="true" 
+    [visible]="visible" 
+    (onHide)="onVisibleChange(false)"
+    [style]="{ width: '90rem', height: '90vh' }" 
+    [draggable]="false" 
+    [resizable]="false"
+    [maximizable]="true">
+
+    <div *ngIf="loading" class="flex justify-center items-center h-64">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+
+    <div *ngIf="!loading && detailedSubmission" class="flex flex-col gap-6">
+        <!-- Header Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-gray-600 mb-2">Question</h6>
+                <p class="font-medium">{{ detailedSubmission.questionTitle }}</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-gray-600 mb-2">Language</h6>
+                <p-tag [value]="detailedSubmission.languageName" severity="info"></p-tag>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-gray-600 mb-2">Status</h6>
+                <p-tag 
+                    [value]="detailedSubmission.status" 
+                    [severity]="getStatusSeverity(detailedSubmission.status)">
+                </p-tag>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-gray-600 mb-2">Score</h6>
+                <div class="flex items-center gap-2">
+                    <span [class]="getScoreColor(detailedSubmission.score)" class="font-bold text-lg">
+                        {{ detailedSubmission.score }}%
+                    </span>
+                    <span class="text-sm text-gray-600">
+                        ({{ detailedSubmission.testCasesPassed }}/{{ detailedSubmission.totalTestCases }})
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-blue-600 mb-2">Execution Time</h6>
+                <p class="font-medium">{{ formatTime(detailedSubmission.time) }}</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-green-600 mb-2">Memory Usage</h6>
+                <p class="font-medium">{{ formatMemory(detailedSubmission.memory) }}</p>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg">
+                <h6 class="font-semibold text-sm text-purple-600 mb-2">Submitted</h6>
+                <p class="font-medium">{{ detailedSubmission.submissionDate | date:'medium' }}</p>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-2">
+                <h6 class="font-semibold">Test Cases Progress</h6>
+                <span class="text-sm font-medium">
+                    {{ detailedSubmission.testCasesPassed }}/{{ detailedSubmission.totalTestCases }} passed
+                </span>
+            </div>
+            <p-progressBar 
+                [value]="detailedSubmission.score" 
+                [showValue]="false">
+            </p-progressBar>
+        </div>
+
+        <!-- Tabs for different content -->
+        <p-tabView>
+            <!-- Source Code Tab -->
+            <p-tabPanel header="Source Code" leftIcon="pi pi-code">
+                <div class="bg-gray-900 text-white p-4 rounded-lg overflow-auto max-h-96">
+                    <pre class="text-sm font-mono whitespace-pre-wrap">{{ detailedSubmission.sourceCode || 'Source code not available' }}</pre>
+                </div>
+            </p-tabPanel>
+
+            <!-- Output Tab -->
+            <p-tabPanel header="Output" leftIcon="pi pi-file-o">
+                <div class="space-y-4">
+                    <div *ngIf="detailedSubmission.stdout" class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h6 class="font-semibold text-green-800 mb-2">Standard Output</h6>
+                        <pre class="text-sm font-mono whitespace-pre-wrap text-green-700">{{ detailedSubmission.stdout }}</pre>
+                    </div>
+                    
+                    <div *ngIf="detailedSubmission.stderr" class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <h6 class="font-semibold text-red-800 mb-2">Standard Error</h6>
+                        <pre class="text-sm font-mono whitespace-pre-wrap text-red-700">{{ detailedSubmission.stderr }}</pre>
+                    </div>
+                    
+                    <div *ngIf="detailedSubmission.compileOutput" class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                        <h6 class="font-semibold text-orange-800 mb-2">Compilation Output</h6>
+                        <pre class="text-sm font-mono whitespace-pre-wrap text-orange-700">{{ detailedSubmission.compileOutput }}</pre>
+                    </div>
+
+                    <div *ngIf="!detailedSubmission.stdout && !detailedSubmission.stderr && !detailedSubmission.compileOutput" 
+                         class="text-center text-gray-500 py-8">
+                        No output available
+                    </div>
+                </div>
+            </p-tabPanel>
+
+            <!-- Additional Info Tab -->
+            <p-tabPanel header="Details" leftIcon="pi pi-info-circle">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600">Submission ID</label>
+                            <p class="font-mono text-sm">{{ detailedSubmission.id }}</p>
+                        </div>
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600">Exit Code</label>
+                            <p class="font-mono text-sm">{{ detailedSubmission.exitCode ?? 'N/A' }}</p>
+                        </div>
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600">Wall Time</label>
+                            <p class="font-mono text-sm">{{ formatTime(detailedSubmission.wallTime) }}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="font-semibold text-sm text-gray-600">User</label>
+                            <p class="text-sm">{{ detailedSubmission.userEmail }}</p>
+                        </div>
+                        <div *ngIf="detailedSubmission.finishedAt">
+                            <label class="font-semibold text-sm text-gray-600">Finished At</label>
+                            <p class="text-sm">{{ detailedSubmission.finishedAt | date:'medium' }}</p>
+                        </div>
+                        <div *ngIf="detailedSubmission.message">
+                            <label class="font-semibold text-sm text-gray-600">Message</label>
+                            <p class="text-sm">{{ detailedSubmission.message }}</p>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+
+    <ng-template #footer>
+        <div class="flex justify-between items-center">
+            <p-button 
+                *ngIf="detailedSubmission && isProcessing(detailedSubmission.status)"
+                label="Refresh Status" 
+                icon="pi pi-refresh"
+                severity="info"
+                [outlined]="true"
+                (onClick)="onRefreshStatus()">
+            </p-button>
+            <div></div>
+            <p-button 
+                label="Close" 
+                severity="secondary"
+                (onClick)="onCancel()">
+            </p-button>
+        </div>
+    </ng-template>
+</p-dialog>
