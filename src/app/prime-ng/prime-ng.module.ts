@@ -29,6 +29,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {PasswordModule} from 'primeng/password';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {RatingModule} from 'primeng/rating';
+import {DropdownModule} from 'primeng/dropdown';
 import {SelectModule} from 'primeng/select';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {SliderModule} from 'primeng/slider';
@@ -65,6 +66,7 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {SplitterModule} from 'primeng/splitter';
 import {StepperModule} from 'primeng/stepper';
 import {TabsModule} from 'primeng/tabs';
+import {TabViewModule} from 'primeng/tabview';
 import {ToolbarModule} from 'primeng/toolbar';
 
 // Overlay
@@ -148,6 +150,7 @@ const formImports = [
     PasswordModule,
     RadioButtonModule,
     RatingModule,
+    DropdownModule,
     SelectModule,
     SelectButtonModule,
     SliderModule,
@@ -187,6 +190,7 @@ const panelImports = [
     SplitterModule,
     StepperModule,
     TabsModule,
+    TabViewModule,
     ToolbarModule,
 ];
 

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideRouter, withInMemoryScrolling, withEnabledBlockingInitialNavigation } from '@angular/router';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor-v2';
 
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
@@ -18,9 +19,17 @@ import { DashboardModule } from './ctx-dashboards/dashboard.module';
 import { UniversityModule } from './ctx-university/university.module';
 import { AuthInterceptor } from './api/http-interceptors';
 
+const monacoConfig: NgxMonacoEditorConfig = {
+    baseUrl: 'assets/monaco-editor',
+    defaultOptions: { 
+        scrollBeyondLastLine: false,
+        theme: 'vs-dark'
+    },
+};
+
 const components = [AppComponent];
 
-const foreignModules = [BrowserModule, FormsModule];
+const foreignModules = [BrowserModule, FormsModule, MonacoEditorModule.forRoot(monacoConfig)];
 
 const localModules = [AppRoutingModule, LayoutModule, AuthModule, PrimeNGModule, LibrariesModule, DashboardModule, UniversityModule];
 

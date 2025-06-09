@@ -7,7 +7,9 @@ import { NotificationType } from '../../../../libraries/enums';
 import { ModalBaseAbstract } from '../../../../libraries/abstracts';
 import { Question, QuestionsService, Submission, SubmissionService, SubmitCodeFileRequest, SUPPORTED_LANGUAGES, Language } from '../../../../api/university';
 import { LoadingService } from '../../../../ctx-layout/layout/service/loading.service';
+import { LayoutService } from '../../../../ctx-layout/layout/service/layout.service';
 import { SubmissionPollingService } from '../../services/submission-polling.service';
+import { LanguageMappingService } from '../../../../libraries/utils';
 
 @Component({
     selector: 'ctx-university-create-submission',
@@ -26,6 +28,8 @@ export class CreateSubmissionComponent extends ModalBaseAbstract implements OnIn
     selectedFile: File | null = null;
     
     submissionMethod: 'file' | 'code' = 'file';
+    currentMonacoLanguage: string = 'javascript';
+    editorTheme: string = 'vs-dark';
 
     constructor(
         messageService: MessageService,
@@ -33,7 +37,8 @@ export class CreateSubmissionComponent extends ModalBaseAbstract implements OnIn
         fb: FormBuilder,
         private submissionService: SubmissionService,
         private questionsService: QuestionsService,
-        private pollingService: SubmissionPollingService
+        private pollingService: SubmissionPollingService,
+        private layoutService: LayoutService
     ) {
         super(messageService, loadingService, fb);
         this.initializeForm();
@@ -44,6 +49,14 @@ export class CreateSubmissionComponent extends ModalBaseAbstract implements OnIn
         if (this.questionId) {
             this.form.patchValue({ questionId: this.questionId });
         }
+        
+        // Set initial theme
+        this.editorTheme = this.layoutService.isDarkTheme() ? 'vs-dark' : 'vs';
+        
+        // React to theme changes
+        this.layoutService.configUpdate$.subscribe(() => {
+            this.editorTheme = this.layoutService.isDarkTheme() ? 'vs-dark' : 'vs';
+        });
     }
 
     onVisibleChange(visible: boolean): void {
@@ -94,6 +107,13 @@ export class CreateSubmissionComponent extends ModalBaseAbstract implements OnIn
         }
         
         this.form.get('sourceCode')?.updateValueAndValidity();
+    }
+
+    onLanguageChange(): void {
+        const languageId = this.form.get('languageId')?.value;
+        if (languageId) {
+            this.currentMonacoLanguage = LanguageMappingService.getMonacoLanguageByJudge0Id(parseInt(languageId));
+        }
     }
 
     private initializeForm(): void {
@@ -182,6 +202,7 @@ export class CreateSubmissionComponent extends ModalBaseAbstract implements OnIn
         
         if (language) {
             this.form.patchValue({ languageId: language.id });
+            this.currentMonacoLanguage = LanguageMappingService.getMonacoLanguageByJudge0Id(language.id);
         }
     }
 

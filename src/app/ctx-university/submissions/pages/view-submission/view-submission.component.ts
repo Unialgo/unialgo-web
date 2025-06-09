@@ -62,7 +62,7 @@ export class ViewSubmissionComponent extends BaseAbstract implements OnInit {
         );
     }
 
-    getStatusSeverity(status: string): string {
+    getStatusSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' {
         switch (status) {
             case 'Accepted':
                 return 'success';
@@ -78,7 +78,7 @@ export class ViewSubmissionComponent extends BaseAbstract implements OnInit {
             case 'Evaluating':
                 return 'info';
             default:
-                return 'warning';
+                return 'warn';
         }
     }
 

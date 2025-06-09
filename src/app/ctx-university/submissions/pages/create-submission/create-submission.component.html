@@ -39,6 +39,7 @@
                     optionLabel="name"
                     optionValue="id"
                     placeholder="Select a language"
+                    (onChange)="onLanguageChange()"
                     class="w-full">
                 </p-dropdown>
                 <small *ngIf="form.get('languageId')?.invalid && form.get('languageId')?.touched" 
@@ -104,15 +105,13 @@
             <!-- Code Input -->
             <div *ngIf="submissionMethod === 'code'" class="flex flex-col gap-2">
                 <label for="sourceCode" class="font-semibold">Source Code *</label>
-                <textarea
-                    id="sourceCode"
+                <app-monaco-code-editor
                     formControlName="sourceCode"
-                    pInputTextarea
-                    rows="15"
-                    cols="30"
-                    placeholder="Paste your source code here..."
-                    class="w-full font-mono">
-                </textarea>
+                    [language]="currentMonacoLanguage"
+                    [theme]="editorTheme"
+                    [height]="'450px'"
+                    placeholder="Write your solution here...">
+                </app-monaco-code-editor>
                 <small *ngIf="form.get('sourceCode')?.invalid && form.get('sourceCode')?.touched" 
                        class="text-red-500">
                     Source code is required

@@ -105,7 +105,7 @@ export class ListSubmissionsComponent extends EntityListAbstract implements OnIn
         );
     }
 
-    getStatusSeverity(status: string): string {
+    getStatusSeverity(status: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' | 'contrast' {
         switch (status) {
             case 'Accepted':
                 return 'success';
@@ -121,7 +121,7 @@ export class ListSubmissionsComponent extends EntityListAbstract implements OnIn
             case 'Evaluating':
                 return 'info';
             default:
-                return 'warning';
+                return 'warn';
         }
     }
 

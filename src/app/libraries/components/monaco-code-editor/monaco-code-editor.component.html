@@ -1,0 +1,12 @@
+<div class="monaco-editor-container" [style.height]="height">
+  <ngx-monaco-editor 
+    [options]="editorOptions"
+    [(ngModel)]="code"
+    (onInit)="onEditorInit($event)"
+    class="monaco-editor">
+  </ngx-monaco-editor>
+</div>
+
+<div *ngIf="!code || code.trim() === ''" class="editor-placeholder">
+  <span class="placeholder-text">{{ placeholder }}</span>
+</div>
