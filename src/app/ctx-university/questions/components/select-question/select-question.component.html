@@ -1,0 +1,12 @@
+<p-autocomplete 
+  #dropdown
+  [(ngModel)]="selectedItem" 
+  [virtualScroll]="false" 
+  [suggestions]="filteredItems" 
+  [virtualScrollItemSize]="34" 
+  [dropdown]="true" 
+  placeholder="Choose a question…" 
+  optionLabel="label"
+  appendTo="body"
+  (completeMethod)="filterItems($event)" 
+  (onSelect)="onSelect()" />

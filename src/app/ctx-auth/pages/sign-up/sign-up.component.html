@@ -65,6 +65,17 @@
                                 </div>
                             </p-iconfield>
                         </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center">
+                                <p-radiobutton value="TEACHER" inputId="teacher" formControlName="role"/>
+                                <label for="teacher" class="ml-2">Teacher</label>
+                            </div>
+                        
+                            <div class="flex items-center">
+                                <p-radiobutton value="STUDENT" inputId="student"  formControlName="role"/>
+                                <label for="student" class="ml-2">Student</label>
+                            </div>
+                        </div>                 
                         <div class="col text-center pt-4 pb-4">
                             <p-button class="bg-primary" styleClass="login-button" (click)="onClickSignUp()">Create Account</p-button>
                         </div>

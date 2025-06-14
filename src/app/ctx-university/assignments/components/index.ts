@@ -1,0 +1,1 @@
+export * from './manage-assignment-questions/manage-assignment-questions.component';

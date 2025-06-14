@@ -25,11 +25,11 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         private router: Router
     ) {
         super(messageService, loadingService, formBuilder);
-        this.atualizarMensagensValidacao();
+        this.updateValidationMessages();
     }
 
     ngOnInit(): void {
-        this.criarFormulario();
+        this.createForms();
     }
 
     verificarTemaEscuro(): boolean {
@@ -50,7 +50,7 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         const request: SignupRequest = {
             username: this.form.value.username,
             password: this.form.value.password,
-            role: 'TEACHER'
+            role: this.form.value.role
             // TODO :: Definir como será diferenciado no cadadastro
             // role: 'TEACHER' || 'STUDENT'
         };
@@ -67,15 +67,16 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         );
     }
 
-    private criarFormulario(): void {
+    private createForms(): void {
         this.form = this.formBuilder.group({
             username: [null, Validators.required],
             password: [null, Validators.required],
-            confirmationPassword: [null, Validators.required]
+            confirmationPassword: [null, Validators.required],
+            role: ["STUDENT", Validators.required]
         });
     }
 
-    private atualizarMensagensValidacao(): void {
+    private updateValidationMessages(): void {
         super.setValidationMessages({
             username: {
                 required: 'Informe o E-mail'

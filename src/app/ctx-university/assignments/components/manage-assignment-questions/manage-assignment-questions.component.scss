@@ -1,0 +1,13 @@
+:host ::ng-deep [cdkDrag] {
+  cursor: move;
+}
+
+:host ::ng-deep [cdkDropList] {
+  min-height: 50px;
+}
+
+.drag-item {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: var(--surface-border);
+}

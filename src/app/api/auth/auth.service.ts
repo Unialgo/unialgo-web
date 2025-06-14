@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs';
 import moment from 'moment';
+import { jwtDecode } from "jwt-decode";
 
 import { LoginRequest } from '.';
 import { environment } from '../../../environments/environment';
@@ -11,8 +12,14 @@ import { SignupRequest } from './requests/signup-request';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+    refreshIntervalId: any;
+
     get url(): string {
         return environment.apiUrl;
+    }
+
+    get authUrl(): string {
+        return environment.authApiUrl;
     }
 
     constructor(
@@ -21,6 +28,7 @@ export class AuthService {
     ) {}
 
     public login(request: LoginRequest) {
+        this.clearSession();
         return this.http.post<any>(`${this.url}/public/users/login`, { ...request }).pipe(
             map((o) => {
                 this.setSession(o);
@@ -29,30 +37,48 @@ export class AuthService {
     }
 
     public signup(request: SignupRequest) {
-        return this.http.post<any>(`${this.url}/public/users/signup`, { ...request })
+        return this.http.post(`${this.url}/public/users/signup`, { ...request }, { responseType: 'text' });
     }
 
-    private setSession(authResult: any) {
-        const expiresAt = moment().add(authResult.expiresIn, 'second');
+    refreshToken() {
+        const refreshToken = this.getRefreshToken();
+        if (!refreshToken) return;
+
+        return this.http.post<any>(`${this.url}/public/users/refresh`, { refreshToken: refreshToken }).pipe(
+            map((o) => {
+                this.setSession(o);
+            })
+        );
+    }
+
+    private setSession(authResult: any): void {
+        const expiresAt = moment().add(authResult.expires_in, 'second');
 
         localStorage.setItem('access_token', authResult.access_token);
+        localStorage.setItem('refresh_token', authResult.refresh_token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+        this.startTokenRefreshScheduler();
+    }
+
+    private clearSession(): void {
+        this.stopTokenRefreshScheduler();
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('expires_at');
+        localStorage.removeItem('refresh_token');
     }
 
     logout() {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('expires_at');
+        this.clearSession();
         this.router.navigateByUrl('/login');
     }
 
     public isLoggedIn() {
         const expirationDate = this.getExpiration();
-        if (expirationDate == null) return false;
-        else return true
+        if (!expirationDate) return false;
 
-        // TODO: Esta voltando data do login no expires_at
+        const now = moment();
 
-        // return moment().diff(expirationDate.toDate(), 'hour') > 0;
+        return moment(expirationDate).diff(now, 'seconds') > 0;
     }
 
     isLoggedOut() {
@@ -61,9 +87,63 @@ export class AuthService {
 
     getExpiration() {
         const expiration = localStorage.getItem('expires_at');
-        if (!expiration) return null;
+        if (!expiration) return false;
 
         const expiresAt = JSON.parse(expiration);
-        return moment(expiresAt);
+
+        return moment(expiresAt).toDate();
+    }
+
+    getAccessToken(): string | null {
+        return localStorage.getItem('access_token');
+    }
+
+    getRefreshToken(): string | null {
+        return localStorage.getItem('refresh_token');
+    }
+
+    startTokenRefreshScheduler() {
+        if (this.refreshIntervalId) {
+            clearInterval(this.refreshIntervalId);
+        }
+
+        this.refreshIntervalId = setInterval(() => {
+            const expiresAt = this.getExpiration();
+            const now = moment();
+
+            if (!expiresAt) return;
+            const timeLeft = moment(expiresAt).diff(now, 'seconds');
+
+            if (timeLeft < 60 && timeLeft > 0) {
+                this.refreshToken()?.subscribe();
+            }
+
+            if (timeLeft <= 0) {
+                this.logout();
+            }
+        }, 30 * 1000);
+    }
+
+    stopTokenRefreshScheduler() {
+        if (this.refreshIntervalId) {
+            clearInterval(this.refreshIntervalId);
+            this.refreshIntervalId = null;
+        }
+    }
+
+    isProfessor(): boolean  {
+        const token = localStorage.getItem('access_token');
+        if (!token) return false;
+
+        const decoded = jwtDecode(token) as any
+        return decoded.resource_access.unialgo.roles.find((role: string) => role == 'TEACHER') != undefined;
+    }
+
+    isStudent(): boolean {
+        const token = localStorage.getItem('access_token');
+        if (!token) return false;
+
+        const decoded = jwtDecode(token) as any
+        return decoded.resource_access.unialgo.roles.find((role: string) => role == 'STUDENT') != undefined;
     }
 }
