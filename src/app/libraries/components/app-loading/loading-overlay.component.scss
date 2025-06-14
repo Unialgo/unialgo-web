@@ -26,7 +26,7 @@
 $w: 12.5em;
 $l: .05*$w;
 $r: .5*$l;
-$a: round(math.atan($r/$l) + 1deg);
+$a: math.round(math.atan(calc($r/$l)) + 1deg);
 
 html, body, div { display: grid }
 html { min-height: 100% }

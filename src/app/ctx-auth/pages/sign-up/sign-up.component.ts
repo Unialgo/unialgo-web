@@ -50,7 +50,7 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         const request: SignupRequest = {
             username: this.form.value.username,
             password: this.form.value.password,
-            role: 'TEACHER'
+            role: this.form.value.role
             // TODO :: Definir como será diferenciado no cadadastro
             // role: 'TEACHER' || 'STUDENT'
         };
@@ -71,7 +71,8 @@ export class SignUpComponent extends ReactiveFormAbstract implements OnInit {
         this.form = this.formBuilder.group({
             username: [null, Validators.required],
             password: [null, Validators.required],
-            confirmationPassword: [null, Validators.required]
+            confirmationPassword: [null, Validators.required],
+            role: ["STUDENT", Validators.required]
         });
     }
 
