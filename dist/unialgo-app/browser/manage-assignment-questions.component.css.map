@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/ctx-university/assignments/components/manage-assignment-questions/manage-assignment-questions.component.scss"],
+  "sourcesContent": [":host ::ng-deep [cdkDrag] {\r\n  cursor: move;\r\n}\r\n\r\n:host ::ng-deep [cdkDropList] {\r\n  min-height: 50px;\r\n}\r\n\r\n.drag-item {\r\n  border-radius: 10px;\r\n  border-width: 2px;\r\n  border-color: var(--surface-border);\r\n}"],
+  "mappings": ";AAAA,MAAA,UAAA,CAAA;AACE,UAAA;;AAGF,MAAA,UAAA,CAAA;AACE,cAAA;;AAGF,CAAA;AACE,iBAAA;AACA,gBAAA;AACA,gBAAA,IAAA;;",
+  "names": []
+}
