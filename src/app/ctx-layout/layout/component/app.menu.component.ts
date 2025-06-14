@@ -60,7 +60,7 @@ export class AppMenu {
 
         if (this.auth.isLoggedIn()) {
             items.push({ label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/'] });
-            items.push({ label: 'Professor', icon: 'pi pi-fw pi-home', routerLink: ['dashboards/professor'] });
+            // items.push({ label: 'Professor', icon: 'pi pi-fw pi-home', routerLink: ['dashboards/professor'] });
         }
 
         return items;
@@ -69,11 +69,11 @@ export class AppMenu {
     private getUniversityItems(): MenuItem[] {
         let items: MenuItem[] = [];
 
-        if (this.auth.isLoggedIn()) {
+        if (this.auth.isLoggedIn() && this.auth.isProfessor()) {
             items.push({ label: 'Questions', icon: 'pi pi-fw pi-file-edit', routerLink: ['university/questions'] });
         }
 
-        if (this.auth.isLoggedIn()) {
+        if (this.auth.isLoggedIn() && this.auth.isProfessor()) {
             items.push({ label: 'Lists', icon: 'pi pi-fw pi-list', routerLink: ['university/lists'] });
         }
 

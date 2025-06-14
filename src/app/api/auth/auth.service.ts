@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs';
 import moment from 'moment';
+import { jwtDecode } from "jwt-decode";
 
 import { LoginRequest } from '.';
 import { environment } from '../../../environments/environment';
@@ -128,5 +129,21 @@ export class AuthService {
             clearInterval(this.refreshIntervalId);
             this.refreshIntervalId = null;
         }
+    }
+
+    isProfessor(): boolean  {
+        const token = localStorage.getItem('access_token');
+        if (!token) return false;
+
+        const decoded = jwtDecode(token) as any
+        return decoded.resource_access.unialgo.roles.find((role: string) => role == 'TEACHER') != undefined;
+    }
+
+    isStudent(): boolean {
+        const token = localStorage.getItem('access_token');
+        if (!token) return false;
+
+        const decoded = jwtDecode(token) as any
+        return decoded.resource_access.unialgo.roles.find((role: string) => role == 'STUDENT') != undefined;
     }
 }
